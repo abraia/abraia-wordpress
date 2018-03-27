@@ -12,6 +12,8 @@
 
 require_once('abraia.php');
 
+const ALLOWED_IMAGES = array('image/jpeg', 'image/png');
+
 
 add_action('init', 'abraia_admin_init');
 
@@ -25,6 +27,11 @@ function abraia_admin_init() {
 function abraia_settings_init() {
     register_setting('media', 'abraia_api_key');
     register_setting('media', 'abraia_api_secret');
+    register_setting('media', 'abraia_uploads');
+    register_setting('media', 'abraia_backup');
+    register_setting('media', 'abraia_resize');
+    register_setting('media', 'abraia_max_width');
+    register_setting('media', 'abraia_max_height');
 
     add_settings_section('abraia_api_section', 'Smart image compression', 'abraia_settings_section', 'media');
 }
@@ -34,19 +41,34 @@ function abraia_settings_section() {
     <table id="abraia_settings" class="form-table">
       <tbody>
         <tr>
-          <th></th>
-          <td><a class="button" href="https://abraia.me/auth/login" target="_blank"
-              style="background: #fd0;">Get your Abraia API Keys</a></td>
-        </tr>
-        <tr>
-          <th scope="row"><label for="abraia_api_key">Abraia API Key</label></th>
+          <th scope="row"><label for="abraia_api_key">API Key</label></th>
           <td><input name="abraia_api_key" id="abraia_api_key" type="text" class="regular-text"
               value="<?php echo get_option('abraia_api_key') ?>" /></td>
         </tr>
         <tr>
-          <th scope="row"><label for="abraia_api_secret">Abraia API Secret</label></th>
+          <th scope="row"><label for="abraia_api_secret">API Secret</label></th>
           <td><input name="abraia_api_secret" id="abraia_api_secret" type="text" class="regular-text"
               value="<?php echo get_option('abraia_api_secret') ?>" /></td>
+        </tr>
+        <tr>
+          <th scope="row"><label for="abraia_api_status">API Status</label></th>
+          <td><a class="button" href="https://abraia.me/auth/login" target="_blank"
+              style="background: #fd0;">Get your Abraia API Keys</a></td>
+        </tr>
+
+        <tr>
+          <th scope="row"><label for="abraia_resize">Resize larger images</label></th>
+          <td>
+            <label for="abraia_max_width">Max Width</label>
+            <input name="abraia_max_width" step="1" min="0" id="abraia_max_width" type="number" class="small-text"
+                value="<?php echo get_option('abraia_max_width', 2000) ?>" />
+            <label for="abraia_max_height">Max Height</label>
+            <input name="abraia_max_height" step="1" min="0" id="abraia_max_height" type="number" class="small-text"
+                value="<?php echo get_option('abraia_max_height', 2000) ?>" />
+            <p><input name="abraia_resize" id="abraia_resize" type="checkbox" value="1"
+                <?php checked(1, get_option('abraia_resize'), true); ?> />
+                <label for="abraia_resize">Reduce unnecessarily large images to the specified maximum dimensions</label></p>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -67,8 +89,11 @@ function abraia_admin_notice() {
 
 add_action('init', 'abraia_media_init');
 
+$abraia_settings = array();
+
 function abraia_media_init() {
     global $abraia;
+    global $abraia_settings;
     if (is_admin() && current_user_can('upload_files')) {
         add_filter('manage_media_columns', 'abraia_media_columns');
         add_action('manage_media_custom_column', 'abraia_media_custom_column', 10, 2);
@@ -77,6 +102,13 @@ function abraia_media_init() {
         add_action('wp_ajax_compress_item', 'abraia_compress_item');
 
         $abraia->set_keys(get_option('abraia_api_key'), get_option('abraia_api_secret'));
+        $abraia_settings = array(
+          'uploads' => get_option('abraia_uploads'),
+          'backup' => get_option('abraia_backup'),
+          'resize' => get_option('abraia_resize'),
+          'max_width' => get_option('abraia_max_width'),
+          'max_height' => get_option('abraia_max_height'),
+        );
     }
 }
 
@@ -87,8 +119,7 @@ function abraia_media_columns( $media_columns ) {
 
 function abraia_media_custom_column( $column_name, $id ) {
     if ( 'abraia' !== $column_name ) return;
-    $allowed_images = array('image/jpeg', 'image/png');
-    if (!wp_attachment_is_image($id) || !in_array(get_post_mime_type($id), $allowed_images)) {
+    if (!wp_attachment_is_image($id) || !in_array(get_post_mime_type($id), ALLOWED_IMAGES)) {
         return;
     }
     $stats = get_post_meta($id, '_wpa_stats', true);
@@ -116,7 +147,7 @@ function abraia_media_custom_cell($id, $stats) {
 function abraia_media_javascript() {
     global $pagenow;
     if ($pagenow == 'upload.php') {
-        ?>
+      ?>
         <script type="text/javascript">
         jQuery(document).ready(function($) {
             var bulkSelector = $('#bulk-action-selector-top');
@@ -155,15 +186,16 @@ function abraia_media_javascript() {
             });
         });
         </script>
-        <?php
+      <?php
     }
 }
 
 function abraia_compress_item() {
     global $abraia;
+    global $abraia_settings;
     $id = $_POST['id'];
     $stats = get_post_meta($id, '_wpa_stats', true);
-    if (empty($stats)) {
+    if (empty($stats) && in_array(get_post_mime_type($id), ALLOWED_IMAGES)) {
         $path = pathinfo(get_attached_file($id));
         $meta = wp_get_attachment_metadata($id);
         $meta['sizes']['original'] = array('file' => $path['basename']);
@@ -175,7 +207,11 @@ function abraia_compress_item() {
                 $image = path_join($path['dirname'], $file);
                 $temp = path_join($path['dirname'], 'temp');
                 try {
-                    $abraia->from_file($image)->to_file($temp);
+                    if ($abraia_settings['resize']) {
+                        $abraia->from_file($image)->resize($abraia_settings['max_width'], $abraia_settings['max_height'], 'thumb')->to_file($temp);
+                    } else {
+                        $abraia->from_file($image)->to_file($temp);
+                    }
                 }
                 catch (APIError $e) {
                     echo abraia_media_custom_cell($id, NULL);

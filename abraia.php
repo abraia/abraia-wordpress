@@ -17,7 +17,7 @@ class Client {
         self::$api_secret = $api_secret;
     }
 
-    private function session_get($url) {
+    private function list_files($url) {
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_USERPWD, self::$api_key.':'.self::$api_secret);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -27,7 +27,7 @@ class Client {
         return array($statusCode, $resp);
     }
 
-    private function session_delete($url) {
+    private function remove_file($url) {
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_USERPWD, self::$api_key.':'.self::$api_secret);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
@@ -67,7 +67,7 @@ class Client {
 
     function files() {
         $url = API_URL.'/images';
-        list($status, $resp) = $this->session_get($url);
+        list($status, $resp) = $this->list_files($url);
         if ($status != 200)
             throw new APIError('GET ' . $url . ' ' . $status);
         return $resp;
@@ -102,15 +102,16 @@ class Client {
         return $this;
     }
 
-    function resize($width=null, $height=null) {
+    function resize($width=null, $height=null, $mode='auto') {
         if (!is_null($width)) $this->params['w'] = $width;
         if (!is_null($height)) $this->params['h'] = $height;
+        $this->params['m'] = $mode;
         return $this;
     }
 
     function delete($filename) {
         $url = API_URL.'/images/'.$filename;
-        list($status, $resp) = $this->session_delete($url);
+        list($status, $resp) = $this->remove_file($url);
         if ($status != 200)
             throw new APIError('DELETE ' . $url . ' ' . $status);
         return $resp;
