@@ -1,10 +1,10 @@
 <?php
 /*
-  Plugin name: Smart image compression
+  Plugin name: Smart image and video optimization
   Plugin URI: https://github.com/abraia/abraia-wordpress
-  Description: Optimize your JPEG and PNG images automatically with Abraia.
-  Version: 0.1.0
-  Author: Abraia
+  Description: Automatically optimize your images and videos with Abraia.
+  Version: 0.3.0
+  Author: Abraia Software
   Author URI: https://abraia.me
   Text Domain: wp-abraia
   License: GPLv2
@@ -53,7 +53,7 @@ function abraia_settings_section() {
         <tr>
           <th scope="row"><label for="abraia_api_status">API Status</label></th>
           <td><a class="button" href="https://abraia.me/auth/login" target="_blank"
-              style="background: #fd0;">Get your Abraia API Keys</a></td>
+              style="background: #fc0;">Get your Abraia API Keys</a></td>
         </tr>
 
         <tr>
@@ -79,7 +79,7 @@ function abraia_admin_notice() {
     if (!get_option('abraia_api_key') or !get_option('abraia_api_secret')) {
         ?>
         <div class="notice notice-error">
-          <p><a class="button" href="options-media.php#abraia_settings" style="background: #fd0;">
+          <p><a class="button" href="options-media.php#abraia_settings" style="background: #fc0;">
             Configure your Abraia API Keys</a> to start compressing images</p>
         </div>
         <?php
@@ -232,3 +232,5 @@ function abraia_compress_item() {
     echo abraia_media_custom_cell($id, $stats);
     wp_die();
 }
+
+include('abraia-media.php');
