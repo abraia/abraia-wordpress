@@ -1,9 +1,9 @@
-# Abraia image and video optimization plugin for WordPress
+# Abraia image optimization plugin for WordPress
 
-This plugin automatically optimizes your images and videos for any device with
-an optimal balance between quality and file size. It integrates the [Abraia
-services](https://abraia.me) in your WordPress or Woocommerce site, making easy
-to speed up your web site optimizing all your images and videos.
+This plugin automatically optimizes your images for any device with an optimal
+balance between quality and file size. It integrates the [Abraia services](
+https://abraia.me) in your WordPress or Woocommerce site, making easy to speed
+up your web site optimizing all your images.
 
 ## Installation
 
@@ -19,16 +19,16 @@ working.
 
 ## Use
 
-Go to the media library, select the grid mode and automatically optimize
-every JPEG and PNG image from the right column pressing the button or select
-several images and compress them with the bulk option.
+Go to the media library and select `Bulk Abraia` to automatically optimize all
+your images.
+
+![Abraia for wordpress plugin working on bulk mode](images/wordpress_bulk.png)
+
+Also, you can manually optimize every JPEG and PNG image from the right column
+in the grid mode from the `Media Library`. Just press the button the individual
+button or select several images to compress them with the bulk option.
 
 ![Abraia for wordpress plugin working on media library](images/wordpress_working.png)
-
-Moreover, you can directly embed your responsive videos, optimized for any
-device (from desktop to mobile), just uploading and selecting the video.
-
-![Abraia for wordpress plugin working with video](images/wordpress_video.png)
 
 ## Contact us
 

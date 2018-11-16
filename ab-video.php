@@ -26,17 +26,40 @@ function my_new_form() {
     echo media_upload_header(); // This function is used for print media uploader headers etc.
     // echo '<iframe name="iframe" id="iframe_id" src="' . plugins_url('upload.html', __FILE__) . '" style="width: 100%; height: 100%;" ></iframe><script language="javascript">function hello(string){ alert(string); }</script>';
     ?>
-        <style>
+      <style>
         h2 {
           text-align: center;
           font-size: 24px;
           font-weight: 400;
         }
-        .media-embed {
+        .media-frame {
+          background-color: #fcfcfc;
+        }
+        .media-frame-content {
+          display: flex;
           height: calc(100% - 60px);
+        }
+        .media-embed {
+          display: flex;
           background-color: #fff;
           flex-direction: column;
+        }
+        .media-gallery {
+          padding: 8px;
           display: flex;
+          flex-wrap: wrap;
+          overflow-y: scroll;
+          justify-content: center;
+          font-size: 12px;
+        }
+        .media-sidebar {
+          background: #f3f3f3;
+          width: 267px;
+          padding: 0 16px 24px;
+          z-index: 75;
+          border-left: 1px solid #ddd;
+          overflow: auto;
+          -webkit-overflow-scrolling: touch;
         }
         .media-toolbar-primary {
           float: right;
@@ -63,23 +86,14 @@ function my_new_form() {
           justify-content: center;
           margin: 2rem;
         }
-        .light-grey {
+        .progress {
           color:#000!important;
           background-color: #f1f1f1!important
         }
-        .progress {
+        .progress-bar {
           color: #fff;
           background-color: #fc0;
           text-align: center;
-        }
-        .gallery {
-          padding: 8px;
-          display: flex;
-          flex-wrap: wrap;
-          overflow-y: scroll;
-          justify-content: center;
-          font-size: 12px;
-          margin: 1rem;
         }
         .thumbnail {
           display: flex;
@@ -98,17 +112,21 @@ function my_new_form() {
         .is-hidden {
           display: none;
         }
-        </style>
-        <div class="media-embed">
-          <div class="light-grey">
-            <div id="myBar" class="progress" style="width:0%">&nbsp;</div>
+      </style>
+        <div class="media-frame-content">
+          <div class="media-embed">
+            <div class="progress">
+              <div id="progress-bar" class="progress-bar" style="width:0%">&nbsp;</div>
+            </div>
+            <div class="uploader">
+              <input id="file-selector" class="is-hidden" type="file" accept="video/mp4" onChange="uploadFiles(event.target.files)" name="file[]" multiple />
+              <div id="drop" onClick="document.getElementById('file-selector').click();">Drop files here to upload<br>or<br>Click to select</div>
+            </div>
+            <h2>Video Gallery</h2>
+            <div id="gallery" class="media-gallery"></div>
           </div>
-          <div class="uploader">
-            <input id="file-selector" class="is-hidden" type="file" accept="video/mp4" onChange="uploadFiles(event.target.files)" name="file[]" multiple />
-            <div id="drop" onClick="document.getElementById('file-selector').click();">Drop files here to upload<br>or<br>Click to select</div>
+          <div class="media-sidebar">
           </div>
-          <h2>Video Gallery</h2>
-          <div id="gallery" class="gallery"></div>
         </div>
         <div class="media-toolbar">
           <div class="media-toolbar-primary search-form">
@@ -128,10 +146,10 @@ function my_new_form() {
           let folder = '';
 
           function progressBar(percent) {
-              const elem = document.getElementById("myBar")
-              elem.style.width = percent + '%'
-              if (percent === 0) elem.innerHTML = '&nbsp;'
-              else elem.innerHTML = percent + '%'
+            const elem = document.getElementById("progress-bar")
+            elem.style.width = percent + '%'
+            if (percent === 0) elem.innerHTML = '&nbsp;'
+            else elem.innerHTML = percent + '%'
           }
 
           function progress(evt) {
@@ -211,5 +229,3 @@ function my_new_form() {
         </script>
     <?php
 }
-
-?>
