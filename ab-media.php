@@ -1,9 +1,5 @@
 <?php
 
-$abraia_settings = array();
-
-add_action('init', 'abraia_media_init');
-
 function abraia_media_init() {
     global $abraia;
     global $abraia_settings;
@@ -16,8 +12,8 @@ function abraia_media_init() {
 
         $abraia->set_keys(get_option('abraia_api_key'), get_option('abraia_api_secret'));
         $abraia_settings = array(
-          'uploads' => get_option('abraia_uploads'),
-          'backup' => get_option('abraia_backup'),
+          'upload' => get_option('abraia_upload'),
+          // 'backup' => get_option('abraia_backup'),
           'resize' => get_option('abraia_resize'),
           'max_width' => get_option('abraia_max_width'),
           'max_height' => get_option('abraia_max_height'),
@@ -41,6 +37,7 @@ function abraia_media_custom_column( $column_name, $id ) {
 
 function abraia_media_custom_cell($id, $stats) {
     if (!empty($stats)) {
+        // print_r($stats);
         $size_diff = $stats['size_before'] - $stats['size_after'];
         $size_percent = 100 * $size_diff / $stats['size_before'];
         $html = '<p>' . count($stats['sizes']) . ' images reduced by ' .
@@ -104,13 +101,21 @@ function abraia_media_javascript() {
 }
 
 function abraia_compress_item() {
+    $id = $_POST['id'];
+    $meta = wp_get_attachment_metadata($id);
+    // print_r($meta);
+    $stats = abraia_compress_image($id, $meta);
+    echo abraia_media_custom_cell($id, $stats);
+    wp_die();
+}
+
+function abraia_compress_image($id, $meta) {
     global $abraia;
     global $abraia_settings;
-    $id = $_POST['id'];
+    // TODO: Get post mime type -> Is it possible to get this value from meta?
     $stats = get_post_meta($id, '_wpa_stats', true);
     if (empty($stats) && in_array(get_post_mime_type($id), ALLOWED_IMAGES)) {
         $path = pathinfo(get_attached_file($id));
-        $meta = wp_get_attachment_metadata($id);
         $meta['sizes']['original'] = array('file' => $path['basename']);
         $stats = array('size_before' => 0, 'size_after' => 0, 'sizes' => array());
         foreach ($meta['sizes'] as $size => $values) {
@@ -119,21 +124,21 @@ function abraia_compress_item() {
                 $stats['sizes'][$size] = array();
                 $image = path_join($path['dirname'], $file);
                 $temp = path_join($path['dirname'], 'temp');
+                $size_before = filesize($image);
                 try {
                     if ($abraia_settings['resize']) {
                         $abraia->from_file($image)->resize($abraia_settings['max_width'], $abraia_settings['max_height'], 'thumb')->to_file($temp);
                     } else {
                         $abraia->from_file($image)->to_file($temp);
                     }
+                    $size_after = filesize($temp);
                 }
                 catch (APIError $e) {
                     // echo $e;
                     // $stats = NULL;
-                    continue;
+                    $size_after = 0;
                 }
-                $size_before = filesize($image);
-                $size_after = filesize($temp);
-                if ($size_after < $size_before) rename($temp, $image);
+                if ($size_after > 0 && $size_after < $size_before) rename($temp, $image);
                 else $size_after = $size_before;
                 $stats['sizes'][$size]['size_before'] = $size_before;
                 $stats['sizes'][$size]['size_after'] = $size_after;
@@ -143,6 +148,40 @@ function abraia_compress_item() {
         }
         if (!is_null($stats)) update_post_meta($id, '_wpa_stats', $stats);
     }
-    echo abraia_media_custom_cell($id, $stats);
-    wp_die();
+    return $stats;
+}
+
+
+add_filter('wp_generate_attachment_metadata','abraia_upload_filter', 10, 2);
+
+function abraia_upload_filter($meta, $id) {
+    global $abraia_settings;
+    if ($abraia_settings['upload']) {
+        $stats = abraia_compress_image($id, $meta);
+    }
+    print_r($stats);
+    // $path = wp_upload_dir(); // get upload directory
+    // $file = $path['basedir'].'/'.$meta['file']; // Get full size image
+    // $files[] = $file; // Set up an array of image size urls
+    // foreach ($meta['sizes'] as $size) {
+    //     $files[] = $path['path'].'/'.$size['file'];
+    // }
+    // foreach ($files as $file) { // iterate through each image size
+    //     // Convert image to grayscale credit to http://ottopress.com/2011/customizing-wordpress-images/
+    //     list($orig_w, $orig_h, $orig_type) = @getimagesize($file);
+    //     $image = wp_load_image($file);
+    //     imagefilter($image, IMG_FILTER_GRAYSCALE);
+    //     switch ($orig_type) {
+    //         case IMAGETYPE_GIF:
+    //             imagegif( $image, $file );
+    //             break;
+    //         case IMAGETYPE_PNG:
+    //             imagepng( $image, $file );
+    //             break;
+    //         case IMAGETYPE_JPEG:
+    //             imagejpeg( $image, $file );
+    //             break;
+    //     }
+    // }
+    return $meta;
 }

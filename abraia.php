@@ -120,6 +120,4 @@ class Client {
 
 class APIError extends Exception {}
 
-$abraia = new Client();
-
 ?>

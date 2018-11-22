@@ -1,7 +1,5 @@
 <?php
 
-add_action('admin_menu', 'abraia_media_menu');
-
 function abraia_media_menu() {
 	add_media_page('Abraia Bulk Optimization', 'Bulk Abraia', 'read', 'abraia_bulk_page', 'abraia_media_page');
 }
