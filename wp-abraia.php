@@ -10,6 +10,7 @@
   License: GPLv2
 */
 
+// require_once 'vendor/autoload.php';
 require_once('abraia.php');
 
 $abraia = new Client();

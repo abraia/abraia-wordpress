@@ -1,0 +1,8 @@
+{
+  "require": {
+    "abraia/abraia": "0.2.*"
+  },
+  "config": {
+    "optimize-autoloader": true
+  }
+}
