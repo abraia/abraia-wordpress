@@ -3,7 +3,7 @@
   Plugin name: Smart image optimization
   Plugin URI: https://github.com/abraia/abraia-wordpress
   Description: Automatically optimize your images with Abraia.
-  Version: 0.4.0
+  Version: 0.4.1
   Author: Abraia Software
   Author URI: https://abraia.me
   Text Domain: wp-abraia
