@@ -10,13 +10,13 @@
   License: GPLv2
 */
 
-// require_once 'vendor/autoload.php';
+require_once 'vendor/autoload.php';
+
+$abraia = new Abraia\Abraia();
+
+// require_once('abraia.php');
 //
-// $abraia = new Abraia\Abraia();
-
-require_once('abraia.php');
-
-$abraia = new Client();
+// $abraia = new Client();
 
 $abraia_settings = array();
 
