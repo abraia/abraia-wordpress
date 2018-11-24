@@ -11,27 +11,31 @@
 */
 
 // require_once 'vendor/autoload.php';
+//
+// $abraia = new Abraia\Abraia();
+
 require_once('abraia.php');
 
 $abraia = new Client();
+
 $abraia_settings = array();
-const ALLOWED_IMAGES = array('image/jpeg', 'image/png');
+
+const ALLOWED_IMAGES = array('image/jpeg', 'image/png', 'image/webp');
 
 add_action('init', 'abraia_admin_init');
-add_action('init', 'abraia_media_init');
-add_action('admin_menu', 'abraia_media_menu');
 
 function abraia_admin_init() {
-    if (is_admin() && current_user_can('manage_options')) {
-        add_action('admin_init', 'abraia_settings_init');
-        add_action('admin_notices', 'abraia_admin_notice');
-    }
+    if (is_admin()) {
+        if (current_user_can('manage_options')) {
+            include('admin/settings.php');
+        }
+        // if (current_user_can('uploadFiles')) {
+        //     include('admin/media.php');
+        //     abraia_media_init();
+        // }
+        include('admin/media.php');
+        include('admin/bulk.php');
 
-    if (is_admin() && current_user_can('upload_files')) {
-
+        abraia_media_init();
     }
 }
-
-include('ab-settings.php');
-include('ab-media.php');
-include('ab-bulk.php');

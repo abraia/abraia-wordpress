@@ -11,7 +11,11 @@ class Abraia extends Client {
 
     function __construct() {
         parent::__construct();
-        $this->userid = $this->check();
+        // $this->userid = $this->check();
+    }
+
+    function setKeys($apiKey, $apiSecret) {
+        $this->setApiKeys($apiKey, $apiSecret);
     }
 
     function files($path='') {
@@ -19,6 +23,7 @@ class Abraia extends Client {
     }
 
     function fromFile($path) {
+        if (!$this->userid) $this->userid = $this->check();
         $resp = $this->uploadFile($path, $this->userid . '/');
         $this->path = $resp['source'];
         $this->params = array('q' => 'auto');
@@ -26,6 +31,7 @@ class Abraia extends Client {
     }
 
     function fromUrl($url) {
+        if (!$this->userid) $this->userid = $this->check();
         $this->path = '';
         $this->params = array(
             'url' => $url,
@@ -35,6 +41,7 @@ class Abraia extends Client {
     }
 
     function fromStore($path) {
+        if (!$this->userid) $this->userid = $this->check();
         $this->path = $path;
         $this->params = array('q' => 'auto');
         return $this;

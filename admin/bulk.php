@@ -1,5 +1,7 @@
 <?php
 
+add_action('admin_menu', 'abraia_media_menu');
+
 function abraia_media_menu() {
 	add_media_page('Abraia Bulk Optimization', 'Bulk Abraia', 'read', 'abraia_bulk_page', 'abraia_media_page');
 }
@@ -195,7 +197,7 @@ function abraia_media_page() {
             <div class="column" style="margin: 0 10% 0 0;">
               <h1>Saved</h1>
               <br>
-              <h2><?php echo round($optimized / $total_before * 100) ?>% (<?php echo size_format($optimized, 2) ?>)</h2>
+              <h2><?php echo round($optimized / ($total_before + 0.000001) * 100) ?>% (<?php echo size_format($optimized, 2) ?>)</h2>
               <p></p>
               <div>
                 <span>Original size</span><span style="float:right;"><?php echo size_format($total_before, 2) ?></span>

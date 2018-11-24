@@ -1,5 +1,7 @@
 <?php
 
+add_action('admin_init', 'abraia_settings_init');
+
 function abraia_settings_init() {
     register_setting('media', 'abraia_api_key');
     register_setting('media', 'abraia_api_secret');
@@ -57,6 +59,8 @@ function abraia_settings_section() {
     </table>
     <?php
 }
+
+add_action('admin_notices', 'abraia_admin_notice');
 
 function abraia_admin_notice() {
     if (!get_option('abraia_api_key') or !get_option('abraia_api_secret')) {

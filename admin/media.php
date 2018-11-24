@@ -3,22 +3,21 @@
 function abraia_media_init() {
     global $abraia;
     global $abraia_settings;
-    if (is_admin() && current_user_can('upload_files')) {
-        add_filter('manage_media_columns', 'abraia_media_columns');
-        add_action('manage_media_custom_column', 'abraia_media_custom_column', 10, 2);
 
-        add_action('admin_head', 'abraia_media_javascript');
-        add_action('wp_ajax_compress_item', 'abraia_compress_item');
+    add_filter('manage_media_columns', 'abraia_media_columns');
+    add_action('manage_media_custom_column', 'abraia_media_custom_column', 10, 2);
 
-        $abraia->set_keys(get_option('abraia_api_key'), get_option('abraia_api_secret'));
-        $abraia_settings = array(
-          'upload' => get_option('abraia_upload'),
-          // 'backup' => get_option('abraia_backup'),
-          'resize' => get_option('abraia_resize'),
-          'max_width' => get_option('abraia_max_width'),
-          'max_height' => get_option('abraia_max_height'),
-        );
-    }
+    add_action('admin_head', 'abraia_media_javascript');
+    add_action('wp_ajax_compress_item', 'abraia_compress_item');
+
+    $abraia->setKeys(get_option('abraia_api_key'), get_option('abraia_api_secret'));
+    $abraia_settings = array(
+      'upload' => get_option('abraia_upload'),
+      // 'backup' => get_option('abraia_backup'),
+      'resize' => get_option('abraia_resize'),
+      'max_width' => get_option('abraia_max_width'),
+      'max_height' => get_option('abraia_max_height'),
+    );
 }
 
 function abraia_media_columns( $media_columns ) {
@@ -125,18 +124,20 @@ function abraia_compress_image($id, $meta) {
                 $image = path_join($path['dirname'], $file);
                 $temp = path_join($path['dirname'], 'temp');
                 $size_before = filesize($image);
-                try {
-                    if ($abraia_settings['resize']) {
-                        $abraia->from_file($image)->resize($abraia_settings['max_width'], $abraia_settings['max_height'], 'thumb')->to_file($temp);
-                    } else {
-                        $abraia->from_file($image)->to_file($temp);
+                $size_after = 0;
+                if ($size_before > 15000) {
+                    try {
+                        if ($abraia_settings['resize']) {
+                            $abraia->fromFile($image)->resize($abraia_settings['max_width'], $abraia_settings['max_height'], 'thumb')->toFile($temp);
+                        } else {
+                            $abraia->fromFile($image)->toFile($temp);
+                        }
+                        $size_after = filesize($temp);
                     }
-                    $size_after = filesize($temp);
-                }
-                catch (APIError $e) {
-                    // echo $e;
-                    // $stats = NULL;
-                    $size_after = 0;
+                    catch (APIError $e) {
+                        // echo $e;
+                        // $stats = NULL;
+                    }
                 }
                 if ($size_after > 0 && $size_after < $size_before) rename($temp, $image);
                 else $size_after = $size_before;

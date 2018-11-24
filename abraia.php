@@ -12,12 +12,12 @@ class Client {
     function __construct() {
     }
 
-    public static function set_keys($api_key, $api_secret) {
+    public static function setKeys($api_key, $api_secret) {
         self::$api_key = $api_key;
         self::$api_secret = $api_secret;
     }
 
-    private function list_files($url) {
+    private function listFiles($url) {
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_USERPWD, self::$api_key.':'.self::$api_secret);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -27,7 +27,7 @@ class Client {
         return array($statusCode, $resp);
     }
 
-    private function remove_file($url) {
+    private function removeFile($url) {
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_USERPWD, self::$api_key.':'.self::$api_secret);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
@@ -38,7 +38,7 @@ class Client {
         return array($statusCode, $resp);
     }
 
-    private function upload_file($url, $filename) {
+    private function uploadFile($url, $filename) {
         $curl = curl_init($url);
         $postData = array('file' => curl_file_create($filename, '', basename($filename)));
         curl_setopt_array($curl, array(
@@ -53,7 +53,7 @@ class Client {
         return array($statusCode, $resp);
     }
 
-    private function download_file($url) {
+    private function downloadFile($url) {
         $curl = curl_init ($url);
         curl_setopt($curl, CURLOPT_HEADER, 0);
         curl_setopt($curl, CURLOPT_USERPWD, self::$api_key.':'.self::$api_secret);
@@ -67,15 +67,15 @@ class Client {
 
     function files() {
         $url = API_URL.'/images';
-        list($status, $resp) = $this->list_files($url);
+        list($status, $resp) = $this->listFiles($url);
         if ($status != 200)
             throw new APIError('GET ' . $url . ' ' . $status);
         return $resp;
     }
 
-    function from_file($filename) {
+    function fromFile($filename) {
         $url = API_URL.'/images';
-        list($status, $resp) = $this->upload_file($url, $filename);
+        list($status, $resp) = $this->uploadFile($url, $filename);
         if ($status != 201)
             throw new APIError('POST ' . $url . ' ' . $status);
         $json = json_decode($resp, true);
@@ -84,16 +84,16 @@ class Client {
         return $this;
     }
 
-    function from_url($url) {
+    function fromUrl($url) {
         $this->url = API_URL.'/images';
         $this->params['url'] = $url;
         $this->params['q'] = 'auto';
         return $this;
     }
 
-    function to_file($filename) {
+    function toFile($filename) {
         $url = $this->url.'?'.http_build_query($this->params);
-        list($status, $resp) = $this->download_file($url);
+        list($status, $resp) = $this->downloadFile($url);
         if ($status != 200)
             throw new APIError('GET ' . $url . ' ' . $status);
         $fp = fopen($filename, 'w');
@@ -111,7 +111,7 @@ class Client {
 
     function delete($filename) {
         $url = API_URL.'/images/'.$filename;
-        list($status, $resp) = $this->remove_file($url);
+        list($status, $resp) = $this->removeFile($url);
         if ($status != 200)
             throw new APIError('DELETE ' . $url . ' ' . $status);
         return $resp;
