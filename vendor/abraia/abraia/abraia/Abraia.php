@@ -48,6 +48,8 @@ class Abraia extends Client {
     }
 
     function toFile($path) {
+        $ext = pathinfo($path, PATHINFO_EXTENSION);
+        if ($ext) $this->params['fmt'] = strtolower($ext);
         $data = $this->transformImage($this->path, $this->params);
         $fp = fopen($path, 'w');
         fwrite($fp, $data);
@@ -56,8 +58,8 @@ class Abraia extends Client {
     }
 
     function resize($width=null, $height=null, $mode='auto') {
-        if (!is_null($width)) $this->params['w'] = $width;
-        if (!is_null($height)) $this->params['h'] = $height;
+        if ($width) $this->params['w'] = $width;
+        if ($height) $this->params['h'] = $height;
         $this->params['m'] = $mode;
         return $this;
     }

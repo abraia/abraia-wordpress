@@ -3,6 +3,8 @@
 add_action('admin_init', 'abraia_settings_init');
 
 function abraia_settings_init() {
+    add_filter('jpeg_quality', function($arg){return 85;});
+
     register_setting('media', 'abraia_api_key');
     register_setting('media', 'abraia_api_secret');
     register_setting('media', 'abraia_upload');

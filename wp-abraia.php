@@ -29,13 +29,11 @@ function abraia_admin_init() {
         if (current_user_can('manage_options')) {
             include('admin/settings.php');
         }
-        // if (current_user_can('uploadFiles')) {
-        //     include('admin/media.php');
-        //     abraia_media_init();
-        // }
-        include('admin/media.php');
-        include('admin/bulk.php');
+        if (current_user_can('upload_files')) {
+            include('admin/media.php');
+            include('admin/bulk.php');
 
-        abraia_media_init();
+            abraia_media_init();
+        }
     }
 }

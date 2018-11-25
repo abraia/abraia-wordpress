@@ -13,7 +13,7 @@ Most common operations can be easily performed using the fluent API. You just
 need to define the API Keys as environment variables (`ABRAIA_API_KEY` and
 `ABRAIA_API_SECRET`).
 
-Automatically optimize an image without any parameterization.
+Automatically optimize a JPEG, PNG, or WebP image without any parameterization.
 
 ```php
 $abraia = new Abraia\Abraia();
@@ -31,7 +31,7 @@ $abraia->fromFile('images/tiger.jpg')->resize(500, 500, 'thumb')->toFile('images
 
 *Tiger image resized and optimized preserving the aspect ratio*
 
-Smartly crop and optimize an image to change its aspect ratio. 
+Smartly crop and optimize an image to change its aspect ratio.
 
 ```php
 $abraia->fromFile('images/tiger.jpg')->resize(500, 500)->toFile('images/resized.jpg');

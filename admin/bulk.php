@@ -190,9 +190,9 @@ function abraia_media_page() {
                 <span class="progress-right">
                   <span class="progress-bar"></span>
                 </span>
-                <div class="progress-value"><?php echo round($percent * 100) ?>%</div>
+                <div class="progress-value"><span id="percent"><?php echo round($percent * 100) ?></span>%</div>
               </div>
-              <h2>(<?php echo $sum ?> / <?php echo $total ?>)</h2>
+              <h2>(<span id="sum"><?php echo $sum ?></span> / <?php echo $total ?>)</h2>
             </div>
             <div class="column" style="margin: 0 10% 0 0;">
               <h1>Saved</h1>
@@ -230,25 +230,30 @@ function abraia_media_page() {
       </div>
       <script type="text/javascript">
         jQuery(document).ready(function($) {
+          var sum = <?php echo $sum ?>;
+          var total = <?php echo $total ?>;
           var images = <?php echo json_encode($images); ?>;
-          var bulkButton = document.getElementById('bulk');
+          var bulkButton = $('#bulk');
           function progressBar(percent) {
-            const elem = document.getElementById("progress-bar")
-            elem.style.width = percent + '%'
-            if (percent === 0) elem.innerHTML = '&nbsp;'
-            else elem.innerHTML = percent + '%'
+            const elem = document.getElementById("progress-bar");
+            elem.style.width = percent + '%';
+            if (percent === 0) elem.innerHTML = '&nbsp;';
+            else elem.innerHTML = percent + '%';
           }
           function compressImage(id, k) {
             return $.post(ajaxurl, { action: 'compress_item', id: id }, function(response) {
-              progressBar(Math.round((k + 1) / images.length * 100))
-              console.log(response)
+              // TODO: Change to return response as json
+              $("#sum").text(sum + k + 1);
+              $('#percent').text(Math.round(100 * (sum + k + 1) / total));
+              progressBar(Math.round((k + 1) / images.length * 100));
+              console.log(response);
             });
           }
-          $('#bulk').click(function() {
-            bulkButton.disabled = true
+          bulkButton.click(function() {
+            bulkButton.prop('disabled', true);
             images.reduce(function(pp, id, k) {
-              return pp.then(function() { return compressImage(id, k) })
-            }, $.when())
+              return pp.then(function() { return compressImage(id, k) });
+            }, $.when());
           });
         });
       </script>
