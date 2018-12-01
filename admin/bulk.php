@@ -7,7 +7,6 @@ function abraia_media_menu() {
 }
 
 function abraia_media_page() {
-    global $abraia;
     $query_images_args = array(
         'post_type' => 'attachment',
         'post_mime_type' =>'image',
@@ -34,11 +33,7 @@ function abraia_media_page() {
     $optimized = $total_before - $total_after;
     $total = count($query_images->posts);
     $percent = $sum / ($total + 0.000001);
-    try {
-        $account = $abraia->loadUser()['user'];
-    } catch (Exception $e) {
-        echo 'Exception catched: ' . $e->getMessage();
-    }
+    $abraia_user = get_abraia_user();
     ?>
       <style>
       .abraia-progress {
@@ -180,8 +175,8 @@ function abraia_media_page() {
               <h1>Account</h1>
               <div style="flex:1;background-color:#eee;display:flex;flex-direction:column;align-items:center;justify-content:center;">
                 <h2>Free Trial</h2>
-                <p>Credits: <?php echo $account['credits']; ?></p>
-                <p>Total optimized: <?php echo $account['transforms']; ?></p>
+                <p>Credits: <?php echo $abraia_user['credits']; ?></p>
+                <p>Total optimized: <?php echo $abraia_user['transforms']; ?></p>
               </div>
             </div>
           </div>

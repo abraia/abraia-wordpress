@@ -36,6 +36,7 @@ function add_abraia_settings_page() {
 
 function abraia_settings_page() {
     $abraia_settings = get_abraia_settings();
+    $abraia_user = get_abraia_user();
     ?>
     <div class="abraia-panel">
       <div class="abraia-header">
@@ -48,7 +49,8 @@ function abraia_settings_page() {
           <table class="form-table">
             <tr>
               <th scope="row">API Key</th>
-              <td><input type="text" name="abraia_settings[api_key]" value="<?php echo $abraia_settings['api_key']; ?>" /></td>
+              <td><input type="text" name="abraia_settings[api_key]" value="<?php echo $abraia_settings['api_key']; ?>" />
+                <img src="<?php echo ($abraia_user) ? plugins_url('../assets/checkmark.png', __FILE__) :  plugins_url('../assets/delete.png', __FILE__); ?>" style="vertical-align:middle;width:32px;margin-left:16px"></td>
             </tr>
             <tr>
               <th scope="row">Resize larger images</th>
@@ -60,7 +62,7 @@ function abraia_settings_page() {
                 <input name="abraia_settings[max_height]" step="1" min="0" type="number" class="small-text"
                     value="<?php echo $abraia_settings['max_height'] ?>" />
                 <p><input name="abraia_settings[resize]" type="checkbox" value="1"
-                  <?php checked(1, $abraia_settings['resize'], true); ?> />
+                  <?php checked($abraia_settings['resize'], true, true); ?> />
                   <label for="abraia_settings[resize]">Reduce unnecessarily large images to the specified maximum dimensions</label></p>
               </td>
             </tr>
@@ -68,13 +70,13 @@ function abraia_settings_page() {
               <th scope="row">Compress on upload</th>
               <td>
                 <p><input name="abraia_settings[upload]" type="checkbox" value="1"
-                  <?php checked(0, $abraia_settings['upload'], true); ?> />
+                  <?php checked($abraia_settings['upload'], 1); ?> />
                   <label for="abraia_settings[upload]">Compress new images on upload</label></p>
               </td>
             </tr>
           </table>
           <p class="submit">
-            <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+            <input type="submit" name="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
           </p>
         </form>
       </div>
@@ -82,20 +84,23 @@ function abraia_settings_page() {
     <?php
 }
 
+function get_abraia_user() {
+    global $abraia;
+    try {
+        $abraia_user = $abraia->loadUser()['user'];
+    } catch (Exception $e) {
+        echo 'Exception catched: ' . $e->getMessage();
+    }
+    return $abraia_user;
+}
+
 add_action('admin_notices', 'abraia_admin_notice');
 
 function abraia_admin_notice() {
-    global $abraia;
     $current_user = wp_get_current_user();
     $abraia_settings = get_abraia_settings();
     if (!$abraia_settings['api_key']) {
-        try {
-            echo $abraia->loadUser()['user']['id'];
-            $abraia_status = true;
-        } catch (Exception $e) {
-            echo 'Exception catched: ' . $e->getMessage();
-            $abraia_status = false;
-        }
+        $abraia_user = get_abraia_user();
         ?>
         <div class="abraia-panel">
           <div class="abraia-header">
@@ -117,13 +122,13 @@ function abraia_admin_notice() {
                 <form method="post" action="options.php">
                   <?php settings_fields('abraia'); ?>
                   <input type="text" name="abraia_settings[api_key]" value="<?php echo $abraia_settings['api_key']; ?>" />
-                  <input type="submit" name="submit" id="submit" class="button button-primary button-hero" value="Save API Key" />
+                  <input type="submit" name="submit" class="button button-primary button-hero" value="Save API Key" />
                 </form>
               </div>
               <div class="abraia-column welcome-panel-last">
                 <h3>3. Optimize your images</h3>
                 <p>API Status:</p>
-                <input type="text" style="background: #fc0;" value="<?php echo ($abraia_status) ? 'Everything OK' : 'Wrong API Key'; ?>" readonly />
+                <input type="text" style="background: #fc0;" value="<?php echo ($abraia_user) ? 'Everything OK' : 'Wrong API Key'; ?>" readonly />
                 <a class="button button-primary button-hero" href="upload.php?page=abraia_bulk_page">Optimize images</a>
               </div>
             </div>
