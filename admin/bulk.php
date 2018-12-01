@@ -7,6 +7,7 @@ function abraia_media_menu() {
 }
 
 function abraia_media_page() {
+    global $abraia;
     $query_images_args = array(
         'post_type' => 'attachment',
         'post_mime_type' =>'image',
@@ -33,65 +34,31 @@ function abraia_media_page() {
     $optimized = $total_before - $total_after;
     $total = count($query_images->posts);
     $percent = $sum / ($total + 0.000001);
+    try {
+        $account = $abraia->loadUser()['user'];
+    } catch (Exception $e) {
+        echo 'Exception catched: ' . $e->getMessage();
+    }
     ?>
       <style>
-      .container {
-        background-color: #fff;
-        margin: 10px 20px 0 2px;
-      }
-      .section {
-        padding: 10px 20px;
-      }
-      .is-dark {
-        background-color: #333;
-      }
-      .is-dark h1 {
-        color: #fafafa;
-      }
-      .row {
-        display: flex;
-        margin: 20px 0;
-      }
-      .row h1, .row h2 {
-        text-align: center;
-      }
-      .row h2 {
-        font-size: 2em;
-        font-weight: 400;
-      }
-      .column {
-        flex: 1;
-        padding: 10px;
-        display: flex;
-        flex-direction: column;
-      }
       .abraia-progress {
-        color:#000!important;
-        background-color: #f1f1f1!important
+        background-color: #eee;
+        color: #333;
+        height: 18px;
       }
       .abraia-progress-bar {
-        color: #fff;
         background-color: #fc0;
+        color: #fff;
+        height: 18px;
         text-align: center;
-      }
-      .button.button-action {
-        width: 100%;
-        height: auto;
-        padding: 11px 22px;
-        font-size: 14px;
-        font-weight: 600;
       }
       .progress {
         width: 150px;
         height: 150px;
-        line-height: 150px;
-        background: none;
-        box-shadow: none;
         margin: 0 auto;
         position: relative;
-        border-radius: 50%;
       }
-      .progress > span{
+      .progress > span {
         width: 50%;
         height: 100%;
         overflow: hidden;
@@ -99,31 +66,33 @@ function abraia_media_page() {
         top: 0;
         z-index: 1;
       }
-      .progress .progress-left{
-        left: 0;
-      }
-      .progress .progress-bar{
+      .progress .progress-bar {
         width: 100%;
         height: 100%;
         background: none;
         border-width: 12px;
+        border-color: #fc0;
         box-sizing: border-box;
         border-style: solid;
         position: absolute;
         top: 0;
       }
-      .progress .progress-left .progress-bar{
+      .progress .progress-left {
+        left: 0;
+      }
+      .progress .progress-left .progress-bar {
         left: 100%;
         border-top-right-radius: 80px;
         border-bottom-right-radius: 80px;
         border-left: 0;
         -webkit-transform-origin: center left;
         transform-origin: center left;
+        animation: loading-3 1s linear forwards 1.8s;
       }
-      .progress .progress-right{
+      .progress .progress-right {
         right: 0;
       }
-      .progress .progress-right .progress-bar{
+      .progress .progress-right .progress-bar {
         left: -100%;
         border-top-left-radius: 80px;
         border-bottom-left-radius: 80px;
@@ -132,24 +101,17 @@ function abraia_media_page() {
         transform-origin: center right;
         animation: loading-1 1.8s linear forwards;
       }
-      .progress .progress-value{
+      .progress .progress-value {
         width: 90%;
         height: 90%;
         border-radius: 50%;
-        background: #555;
+        background-color: #eee;
         font-size: 24px;
-        color: #fff;
         line-height: 135px;
         text-align: center;
         position: absolute;
         top: 5%;
         left: 5%;
-      }
-      .progress.yellow .progress-bar{
-        border-color: #ffcc00;
-      }
-      .progress.yellow .progress-left .progress-bar{
-        animation: loading-3 1s linear forwards 1.8s;
       }
       @keyframes loading-1{
         0%{
@@ -175,15 +137,16 @@ function abraia_media_page() {
         .progress{ margin-bottom: 20px; }
       }
       </style>
-      <div class="container">
-        <div class="section is-dark">
-          <h1>Bulk Image Optimization</h1>
+      <div class="abraia-panel">
+        <div class="abraia-header">
+          <h1>Bulk <span style="color:#fc0">Abraia</span></h1>
+          <p style="color:#fff">Bulk image optimization</p>
         </div>
-        <div class="section">
-          <div class="row">
-            <div class="column">
+        <div class="abraia-content">
+          <div class="abraia-row">
+            <div class="abraia-column">
               <h1>Optimized</h1>
-              <div class="progress yellow">
+              <div class="progress">
                 <span class="progress-left">
                   <span class="progress-bar"></span>
                 </span>
@@ -194,7 +157,7 @@ function abraia_media_page() {
               </div>
               <h2>(<span id="sum"><?php echo $sum ?></span> / <?php echo $total ?>)</h2>
             </div>
-            <div class="column" style="margin: 0 10% 0 0;">
+            <div class="abraia-column" style="margin: 0 10% 0 0;">
               <h1>Saved</h1>
               <br>
               <h2><?php echo round($optimized / ($total_before + 0.000001) * 100) ?>% (<?php echo size_format($optimized, 2) ?>)</h2>
@@ -213,19 +176,21 @@ function abraia_media_page() {
                 </div>
               </div>
             </div>
-            <div class="column">
+            <div class="abraia-column">
               <h1>Account</h1>
-              <div style="flex:1;background-color:#eee;display:flex;align-items:center;justify-content:center;"><h2>Free Trial</h2></div>
+              <div style="flex:1;background-color:#eee;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                <h2>Free Trial</h2>
+                <p>Credits: <?php echo $account['credits']; ?></p>
+                <p>Total optimized: <?php echo $account['transforms']; ?></p>
+              </div>
             </div>
           </div>
         </div>
-        <div class="section">
+        <div class="abraia-footer">
           <div class="abraia-progress">
             <div id="progress-bar" class="abraia-progress-bar" style="width:0%">&nbsp;</div>
           </div>
-        </div>
-        <div class="section">
-          <button id="bulk" class="button button-primary button-action" type="button" <?php echo ($sum == $total) ? 'disabled' : '' ?>>Bulk Optimization</button>
+          <button id="bulk" class="button button-primary button-hero" type="button" <?php echo ($sum == $total) ? 'disabled' : '' ?>>Bulk Optimization</button>
         </div>
       </div>
       <script type="text/javascript">

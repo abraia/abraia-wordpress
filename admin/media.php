@@ -10,14 +10,8 @@ function abraia_media_init() {
     add_action('admin_head', 'abraia_media_javascript');
     add_action('wp_ajax_compress_item', 'abraia_compress_item');
 
-    $abraia->setKeys(get_option('abraia_api_key'), get_option('abraia_api_secret'));
-    $abraia_settings = array(
-      'upload' => get_option('abraia_upload'),
-      // 'backup' => get_option('abraia_backup'),
-      'resize' => get_option('abraia_resize'),
-      'max_width' => get_option('abraia_max_width'),
-      'max_height' => get_option('abraia_max_height'),
-    );
+    $abraia_settings = get_abraia_settings();
+    $abraia->setKey($abraia_settings['api_key']);
 }
 
 function abraia_media_columns( $media_columns ) {

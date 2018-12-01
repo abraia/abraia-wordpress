@@ -1,6 +1,6 @@
 <?php
 /*
-  Plugin name: Smart image optimization
+  Plugin name: Abraia
   Plugin URI: https://github.com/abraia/abraia-wordpress
   Description: Automatically optimize your images with Abraia.
   Version: 0.4.1
@@ -15,7 +15,6 @@ require_once 'vendor/autoload.php';
 $abraia = new Abraia\Abraia();
 
 // require_once('abraia.php');
-//
 // $abraia = new Client();
 
 $abraia_settings = array();

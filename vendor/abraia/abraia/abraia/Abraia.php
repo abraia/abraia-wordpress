@@ -14,7 +14,8 @@ class Abraia extends Client {
         // $this->userid = $this->check();
     }
 
-    function setKeys($apiKey, $apiSecret) {
+    function setKey($key) {
+        list($apiKey, $apiSecret) = explode(':', base64_decode($key));
         $this->setApiKeys($apiKey, $apiSecret);
     }
 

@@ -1,0 +1,62 @@
+.abraia-panel {
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 1px 1px rgba(0,0,0,.04);
+  margin: 10px 20px 0 2px;
+}
+.abraia-panel .button {
+  text-align: center;
+  margin-top: 22px;
+  width: 100%;
+}
+.abraia-header {
+  background-color: #333;
+  border-left: 3px solid #fc0;
+  padding: 10px 20px;
+}
+.abraia-header h1 {
+  color: #fafafa;
+  font-size: 23px;
+  font-weight: 400;
+  margin: .5em 0;
+}
+.abraia-header h2 {
+  color: #fafafa;
+  font-size: 21px;
+  font-weight: 400;
+  margin: .5em 0;
+}
+.abraia-header p {
+  margin: .5em 0;
+}
+.abraia-content {
+  padding: 10px 20px;
+}
+.abraia-content h3 {
+  margin: .5em 0;
+}
+.abraia-row {
+  display: flex;
+  margin: 20px 0;
+}
+.abraia-row h1 {
+  font-weight: 400;
+  text-align: center;
+}
+.abraia-row h2 {
+  font-size: 2em;
+  font-weight: 400;
+  text-align: center;
+}
+.abraia-column {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 10px;
+}
+.abraia-column input {
+  width: 100%;
+}
+.abraia-footer {
+  padding: 10px 20px;
+}

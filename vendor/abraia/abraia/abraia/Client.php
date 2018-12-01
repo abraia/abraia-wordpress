@@ -30,6 +30,18 @@ class Client {
         return $this->listFiles()['folders'][0]['name'];
     }
 
+    public function loadUser() {
+      $curl = curl_init(ABRAIA_API_URL . '/users');
+      curl_setopt($curl, CURLOPT_USERPWD, $this->apiKey.':'.$this->apiSecret);
+      curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+      $resp = curl_exec($curl);
+      $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+      curl_close($curl);
+      if ($statusCode != 200)
+          throw new APIError('GET ' . $statusCode);
+      return json_decode($resp, true);
+    }
+
     public function listFiles($path='') {
         $curl = curl_init(ABRAIA_API_URL . '/files/' . $path);
         curl_setopt($curl, CURLOPT_USERPWD, $this->apiKey.':'.$this->apiSecret);
