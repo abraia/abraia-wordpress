@@ -40,43 +40,43 @@ function abraia_settings_page() {
     ?>
     <div class="abraia-panel">
       <div class="abraia-header">
-        <h1>Settings <span style="color:#fc0">Abraia</span></h1>
-        <p style="color:#fafafa">The smart web image optimization plugin</p>
+        <h1><?php esc_html_e('Settings', 'abraia'); ?> <span style="color:#fc0">Abraia</span></h1>
+        <p><?php esc_html_e('The smart web image optimization plugin', 'abraia'); ?></p>
       </div>
       <div class="abraia-content">
         <form method="post" action="options.php">
           <?php settings_fields('abraia'); ?>
           <table class="form-table">
             <tr>
-              <th scope="row">API Key</th>
-              <td><input type="text" name="abraia_settings[api_key]" value="<?php echo $abraia_settings['api_key']; ?>" />
-                <img src="<?php echo ($abraia_user) ? plugins_url('../assets/checkmark.png', __FILE__) :  plugins_url('../assets/delete.png', __FILE__); ?>" style="vertical-align:middle;width:32px;margin-left:16px"></td>
+              <th scope="row"><?php esc_html_e('Abraia API Key', 'abraia'); ?></th>
+              <td><input type="text" name="abraia_settings[api_key]" value="<?php echo $abraia_settings['api_key']; ?>" style="width:85%;" />
+                <img src="<?php echo ($abraia_user) ? plugins_url('../assets/checkmark.png', __FILE__) :  plugins_url('../assets/delete.png', __FILE__); ?>" style="vertical-align:middle;width:28px;margin-left:16px"></td>
             </tr>
             <tr>
-              <th scope="row">Resize larger images</th>
+              <th scope="row"><?php esc_html_e('Resize larger images', 'abraia'); ?></th>
               <td>
-                <label for="abraia_settings[max_width]">Max Width</label>
+                <label for="abraia_settings[max_width]"><?php esc_html_e('Max Width', 'abraia'); ?></label>
                 <input name="abraia_settings[max_width]" step="1" min="0" type="number" class="small-text"
                     value="<?php echo $abraia_settings['max_width'] ?>" />
-                <label for="abraia_settings[max_height]">Max Height</label>
+                <label for="abraia_settings[max_height]"><?php esc_html_e('Max Height', 'abraia'); ?></label>
                 <input name="abraia_settings[max_height]" step="1" min="0" type="number" class="small-text"
                     value="<?php echo $abraia_settings['max_height'] ?>" />
                 <p><input name="abraia_settings[resize]" type="checkbox" value="1"
                   <?php checked($abraia_settings['resize'], true, true); ?> />
-                  <label for="abraia_settings[resize]">Reduce unnecessarily large images to the specified maximum dimensions</label></p>
+                  <label for="abraia_settings[resize]"><?php esc_html_e('Reduce unnecessarily large images to the specified maximum dimensions', 'abraia'); ?></label></p>
               </td>
             </tr>
             <tr>
-              <th scope="row">Compress on upload</th>
+              <th scope="row"><?php esc_html_e('Compress on upload', 'abraia'); ?></th>
               <td>
                 <p><input name="abraia_settings[upload]" type="checkbox" value="1"
                   <?php checked($abraia_settings['upload'], 1); ?> />
-                  <label for="abraia_settings[upload]">Compress new images on upload</label></p>
+                  <label for="abraia_settings[upload]"><?php esc_html_e('Compress new images on upload', 'abraia'); ?></label></p>
               </td>
             </tr>
           </table>
           <p class="submit">
-            <input type="submit" name="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+            <input type="submit" name="submit" class="button-primary" value="<?php esc_html_e('Save Changes', 'abraia') ?>" />
           </p>
         </form>
       </div>
@@ -106,7 +106,7 @@ function abraia_admin_notice() {
           <div class="abraia-header">
             <h2>Welcome to <span style="color:#fc0">Abraia</span>!</h2>
             <span class="dashicons dashicons-dismiss" style="color: #fff;float: right;"></span>
-            <p style="color:#fafafa">The smart web image optimization plugin</p>
+            <p>The smart web image optimization plugin</p>
           </div>
           <div class="abraia-content">
             <div class="abraia-row">

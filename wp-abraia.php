@@ -13,10 +13,6 @@
 require_once 'vendor/autoload.php';
 
 $abraia = new Abraia\Abraia();
-
-// require_once('abraia.php');
-// $abraia = new Client();
-
 $abraia_settings = array();
 
 const ALLOWED_IMAGES = array('image/jpeg', 'image/png', 'image/webp');

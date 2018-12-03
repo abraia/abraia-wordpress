@@ -11,7 +11,7 @@
 }
 .abraia-header {
   background-color: #333;
-  border-left: 3px solid #fc0;
+  /* border-left: 3px solid #fc0; */
   padding: 10px 20px;
 }
 .abraia-header h1 {
@@ -27,6 +27,7 @@
   margin: .5em 0;
 }
 .abraia-header p {
+  color: #fafafa;
   margin: .5em 0;
 }
 .abraia-content {

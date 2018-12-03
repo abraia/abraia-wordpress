@@ -133,7 +133,7 @@ function my_new_form() {
             <button id="insertButton" type="button" class="button media-button button-primary button-large media-button-select" onClick="insertVideo();" disabled="disabled">Insert into post</button>
           </div>
         </div>
-        <script src="<?php echo plugins_url('client.js', __FILE__); ?>"></script>
+        <script src="<?php echo plugins_url('../assets/client.js', __FILE__); ?>"></script>
         <script type="text/javascript">
           const apiKey = "<?php echo get_option('abraia_api_key') ?>";
           const apiSecret = "<?php echo get_option('abraia_api_secret') ?>";
