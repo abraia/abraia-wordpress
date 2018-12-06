@@ -3,7 +3,7 @@
 add_action('admin_menu', 'abraia_media_menu');
 
 function abraia_media_menu() {
-	add_media_page('Abraia Bulk Optimization', 'Bulk Abraia', 'read', 'abraia_bulk_page', 'abraia_media_page');
+	add_media_page('Abraia Bulk Optimization', __('Bulk Abraia', 'abraia'), 'read', 'abraia_bulk_page', 'abraia_media_page');
 }
 
 function abraia_media_page() {
@@ -13,7 +13,7 @@ function abraia_media_page() {
         'post_status' => 'inherit',
         'posts_per_page' => -1,
     );
-    $query_images = new WP_Query( $query_images_args );
+    $query_images = new WP_Query($query_images_args);
     $sum = 0;
     $total_before = 0;
     $total_after = 0;
@@ -30,9 +30,10 @@ function abraia_media_page() {
         }
         // $images[]= wp_get_attachment_url( $image->ID );
     }
-    $optimized = $total_before - $total_after;
+    $saved = $total_before - $total_after;
     $total = count($query_images->posts);
     $percent = $sum / ($total + 0.000001);
+    $percent_saved = $saved / ($total_before + 0.000001) * 100;
     $abraia_user = get_abraia_user();
     ?>
       <style>
@@ -72,18 +73,6 @@ function abraia_media_page() {
         position: absolute;
         top: 0;
       }
-      .progress .progress-left {
-        left: 0;
-      }
-      .progress .progress-left .progress-bar {
-        left: 100%;
-        border-top-right-radius: 80px;
-        border-bottom-right-radius: 80px;
-        border-left: 0;
-        -webkit-transform-origin: center left;
-        transform-origin: center left;
-        animation: loading-3 1s linear forwards 1.8s;
-      }
       .progress .progress-right {
         right: 0;
       }
@@ -94,7 +83,19 @@ function abraia_media_page() {
         border-right: 0;
         -webkit-transform-origin: center right;
         transform-origin: center right;
-        animation: loading-1 1.8s linear forwards;
+        /* animation: loading-1 1.8s linear forwards; */
+      }
+      .progress .progress-left {
+        left: 0;
+      }
+      .progress .progress-left .progress-bar {
+        left: 100%;
+        border-top-right-radius: 80px;
+        border-bottom-right-radius: 80px;
+        border-left: 0;
+        -webkit-transform-origin: center left;
+        transform-origin: center left;
+        /* animation: loading-3 1s linear forwards 1.8s; */
       }
       .progress .progress-value {
         width: 90%;
@@ -134,45 +135,45 @@ function abraia_media_page() {
       </style>
       <div class="abraia-panel">
         <div class="abraia-header">
-          <h1>Bulk <span style="color:#fc0">Abraia</span></h1>
-          <p style="color:#fff">Bulk image optimization</p>
+          <h1><?php esc_html_e('Bulk', 'abraia') ?> <span style="color:#fc0">Abraia</span></h1>
+          <p><?php esc_html_e('Bulk image optimization', 'abraia') ?></p>
         </div>
         <div class="abraia-content">
           <div class="abraia-row">
             <div class="abraia-column">
-              <h1>Optimized</h1>
+              <h1><?php esc_html_e('Optimized', 'abraia') ?></h1>
               <div class="progress">
                 <span class="progress-left">
-                  <span class="progress-bar"></span>
+                  <span class="progress-bar" style="transform: rotate(<?php echo ($sum > $total / 2) ? round($percent * 360 - 180) : 0 ?>deg);"></span>
                 </span>
                 <span class="progress-right">
-                  <span class="progress-bar"></span>
+                  <span class="progress-bar" style="transform: rotate(<?php echo ($sum > $total / 2) ? 180 : round($percent * 360) ?>deg);"></span>
                 </span>
                 <div class="progress-value"><span id="percent"><?php echo round($percent * 100) ?></span>%</div>
               </div>
               <h2>(<span id="sum"><?php echo $sum ?></span> / <?php echo $total ?>)</h2>
             </div>
             <div class="abraia-column" style="margin: 0 10% 0 0;">
-              <h1>Saved</h1>
+              <h1><?php esc_html_e('Saved', 'abraia') ?></h1>
               <br>
-              <h2><?php echo round($optimized / ($total_before + 0.000001) * 100) ?>% (<?php echo size_format($optimized, 2) ?>)</h2>
+              <h2><span id="percent-saved"><?php echo round($percent_saved) ?></span>% (<span id="saved"><?php echo size_format($saved, 2) ?></span>)</h2>
               <p></p>
               <div>
-                <span>Original size</span><span style="float:right;"><?php echo size_format($total_before, 2) ?></span>
+                <span><?php esc_html_e('Original size', 'abraia') ?></span><span id="original" style="float:right;"><?php echo size_format($total_before, 2) ?></span>
                 <div class="abraia-progress">
                   <div class="abraia-progress-bar" style="width:100%;background-color:#555">&nbsp;</div>
                 </div>
               </div>
               <p></p>
               <div>
-                <span>Optimized size</span><span style="float:right;"><?php echo size_format($total_after, 2) ?></span>
+                <span><?php esc_html_e('Optimized size', 'abraia') ?></span><span id="optimized" style="float:right;"><?php echo size_format($total_after, 2) ?></span>
                 <div class="abraia-progress">
-                  <div class="abraia-progress-bar" style="width:<?php echo round($total_after / $total_before * 100) ?>%">&nbsp;</div>
+                  <div id="optimized-bar" class="abraia-progress-bar" style="width:<?php echo round($total_after / $total_before * 100) ?>%">&nbsp;</div>
                 </div>
               </div>
             </div>
             <div class="abraia-column">
-              <h1>Account</h1>
+              <h1><?php esc_html_e('Account', 'abraia') ?></h1>
               <div style="flex:1;background-color:#eee;display:flex;flex-direction:column;align-items:center;justify-content:center;">
                 <h2>Free Trial</h2>
                 <p>Credits: <?php echo $abraia_user['credits']; ?></p>
@@ -189,26 +190,48 @@ function abraia_media_page() {
         </div>
       </div>
       <script type="text/javascript">
+        // TODO: Merge common javascript code and as a new asset
         jQuery(document).ready(function($) {
           var sum = <?php echo $sum ?>;
           var total = <?php echo $total ?>;
+          var original = <?php echo $total_before ?>;
+          var optimized = <?php echo $total_after ?>;
           var images = <?php echo json_encode($images); ?>;
-          var bulkButton = $('#bulk');
+          function size_format(bytes, decimals = 0) {
+            var units = ['B', 'KB', 'MB', 'BG', 'TB'];
+            var value = 0;
+            var u = -1;
+            do {
+              value = bytes;
+              bytes /= 1024;
+              u += 1;
+            } while (bytes >= 1 && u < units.length);
+            return value.toFixed(decimals) + ' ' + units[u];
+          }
           function progressBar(percent) {
             const elem = document.getElementById("progress-bar");
-            elem.style.width = percent + '%';
-            if (percent === 0) elem.innerHTML = '&nbsp;';
-            else elem.innerHTML = percent + '%';
+            $('#progress-bar').css({'width': percent + '%'});
+            if (percent === 0) $('#progress-bar').text('&nbsp;');
+            else $('#progress-bar').text(percent + '%');
           }
           function compressImage(id, k) {
             return $.post(ajaxurl, { action: 'compress_item', id: id }, function(response) {
-              // TODO: Change to return response as json
-              $("#sum").text(sum + k + 1);
+              $('#sum').text(sum + k + 1);
               $('#percent').text(Math.round(100 * (sum + k + 1) / total));
               progressBar(Math.round((k + 1) / images.length * 100));
-              console.log(response);
+              var stats = JSON.parse(response);
+              original += stats['size_before'];
+              optimized += stats['size_after'];
+              $('#original').text(size_format(original, 2));
+              $('#optimized').text(size_format(optimized, 2));
+              $('#saved').text(size_format(original - optimized, 2));
+              $('#percent-saved').text(Math.round((original - optimized) / original * 100));
+              $('#optimized-bar').css({'width': Math.round(original / optimized * 100)});
+              $('.progress-right .progress-bar').css({'transform': 'rotate(' + (((sum + k + 1) > total / 2) ? 180 : Math.round(360 * (sum + k + 1) / total)) + 'deg)'});
+              $('.progress-left .progress-bar').css({'transform': 'rotate(' + (((sum + k + 1) > total / 2) ? Math.round(360 * (sum + k + 1) / total - 180) : 0) + 'deg)'});
             });
           }
+          var bulkButton = $('#bulk');
           bulkButton.click(function() {
             bulkButton.prop('disabled', true);
             images.reduce(function(pp, id, k) {

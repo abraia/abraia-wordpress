@@ -28,6 +28,18 @@ function get_abraia_settings() {
     return $abraia_settings;
 }
 
+function get_abraia_user() {
+    global $abraia_settings;
+    global $abraia;
+    try {
+        $abraia->setKey($abraia_settings['api_key']);
+        $abraia_user = $abraia->loadUser()['user'];
+    } catch (Exception $e) {
+        // echo 'Exception catched: ' . $e->getMessage();
+    }
+    return $abraia_user;
+}
+
 add_action('admin_menu', 'add_abraia_settings_page');
 
 function add_abraia_settings_page() {
@@ -49,7 +61,7 @@ function abraia_settings_page() {
           <table class="form-table">
             <tr>
               <th scope="row"><?php esc_html_e('Abraia API Key', 'abraia'); ?></th>
-              <td><input type="text" name="abraia_settings[api_key]" value="<?php echo $abraia_settings['api_key']; ?>" style="width:85%;" />
+              <td><input type="text" name="abraia_settings[api_key]" value="<?php echo $abraia_settings['api_key']; ?>" style="width:75%;" />
                 <img src="<?php echo ($abraia_user) ? plugins_url('../assets/checkmark.png', __FILE__) :  plugins_url('../assets/delete.png', __FILE__); ?>" style="vertical-align:middle;width:28px;margin-left:16px"></td>
             </tr>
             <tr>
@@ -84,52 +96,42 @@ function abraia_settings_page() {
     <?php
 }
 
-function get_abraia_user() {
-    global $abraia;
-    try {
-        $abraia_user = $abraia->loadUser()['user'];
-    } catch (Exception $e) {
-        echo 'Exception catched: ' . $e->getMessage();
-    }
-    return $abraia_user;
-}
-
 add_action('admin_notices', 'abraia_admin_notice');
 
 function abraia_admin_notice() {
     $current_user = wp_get_current_user();
     $abraia_settings = get_abraia_settings();
-    if (!$abraia_settings['api_key']) {
-        $abraia_user = get_abraia_user();
+    $abraia_user = get_abraia_user();
+    if (!$abraia_user) {
         ?>
         <div class="abraia-panel">
           <div class="abraia-header">
-            <h2>Welcome to <span style="color:#fc0">Abraia</span>!</h2>
+            <h2><?php esc_html_e('Welcome to', 'abraia') ?> <span style="color:#fc0">Abraia</span>!</h2>
             <span class="dashicons dashicons-dismiss" style="color: #fff;float: right;"></span>
-            <p>The smart web image optimization plugin</p>
+            <p><?php esc_html_e('The smart web image optimization plugin', 'abraia') ?></p>
           </div>
           <div class="abraia-content">
             <div class="abraia-row">
               <div class="abraia-column">
-                <h3>1. Get your FREE API Key</h3>
-                <p>Enter your email:</p>
+                <h3>1. <?php esc_html_e('Get your FREE API Key', 'abraia') ?></h3>
+                <p><?php esc_html_e('Enter your email', 'abraia') ?>:</p>
                 <input type="email" value="<?php echo $current_user->user_email ?>" placeholder="Enter your email" id="user_email" />
-                <button class="button button-primary button-hero" onClick="fetch('https://api.abraia.me/users', { method: 'POST', body: JSON.stringify({ email: document.getElementById('user_email').value }), headers: { 'Content-Type': 'application/json' } }).then(res => res.json()).then(response => console.log('Success:', JSON.stringify(response))).catch(error => console.error('Error:', error));">Get API Key</button>
+                <button class="button button-primary button-hero" onClick="fetch('https://api.abraia.me/users', { method: 'POST', body: JSON.stringify({ email: document.getElementById('user_email').value }), headers: { 'Content-Type': 'application/json' } }).then(res => res.json()).then(response => console.log('Success:', JSON.stringify(response))).catch(error => console.error('Error:', error));"><?php esc_html_e('Get API Key', 'abraia') ?></button>
               </div>
               <div class="abraia-column">
-                <h3>2. Enter your FREE API Key</h3>
-                <p>Enter your API Key:</p>
+                <h3>2. <?php esc_html_e('Enter your FREE API Key', 'abraia') ?></h3>
+                <p><?php esc_html_e('Enter your API Key', 'abraia') ?>:</p>
                 <form method="post" action="options.php">
                   <?php settings_fields('abraia'); ?>
                   <input type="text" name="abraia_settings[api_key]" value="<?php echo $abraia_settings['api_key']; ?>" />
-                  <input type="submit" name="submit" class="button button-primary button-hero" value="Save API Key" />
+                  <input type="submit" name="submit" class="button button-primary button-hero" value="<?php esc_html_e('Save API Key', 'abraia') ?>" />
                 </form>
               </div>
               <div class="abraia-column welcome-panel-last">
-                <h3>3. Optimize your images</h3>
-                <p>API Status:</p>
-                <input type="text" style="background: #fc0;" value="<?php echo ($abraia_user) ? 'Everything OK' : 'Wrong API Key'; ?>" readonly />
-                <a class="button button-primary button-hero" href="upload.php?page=abraia_bulk_page">Optimize images</a>
+                <h3>3. <?php esc_html_e('Optimize your images', 'abraia') ?></h3>
+                <p><?php esc_html_e('API Status', 'abraia') ?>:</p>
+                <input type="text" style="background: <?php echo ($abraia_user) ? '#32bea6' : '#e04f5f'?>;" value="<?php echo ($abraia_user) ? __('Everything OK', 'abraia') : __('Wrong API Key', 'abraia'); ?>" readonly />
+                <a class="button button-primary button-hero" href="upload.php?page=abraia_bulk_page"><?php esc_html_e('Optimize images', 'abraia') ?></a>
               </div>
             </div>
           </div>

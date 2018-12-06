@@ -15,7 +15,7 @@ function abraia_media_init() {
 }
 
 function abraia_media_columns( $media_columns ) {
-	$media_columns['abraia'] = 'Abraia Compression';
+	$media_columns['abraia'] = __('Abraia Compression', 'abraia');
 	return $media_columns;
 }
 
@@ -53,11 +53,35 @@ function abraia_media_javascript() {
       ?>
         <script type="text/javascript">
         jQuery(document).ready(function($) {
+            function size_format(bytes, decimals = 0) {
+              var units = ['B', 'KB', 'MB', 'BG', 'TB'];
+              var value = 0;
+              var u = -1;
+              do {
+                value = bytes;
+                bytes /= 1024;
+                u += 1;
+              } while (bytes >= 1 && u < units.length);
+              return value.toFixed(decimals) + ' ' + units[u];
+            }
             function compressImage(id) {
               $('#progress-'+id).show();
               var button = $('#compress-'+id).hide();
               return $.post(ajaxurl, { action: 'compress_item', id: id }, function(response) {
-                button.parent().html(response);
+                var stats = JSON.parse(response);
+                console.log(stats);
+                var html = '';
+                if (stats) {
+                    var size_diff = stats['size_before'] - stats['size_after'];
+                    var size_percent = 100 * size_diff / stats['size_before'];
+                    html = '<p>' + Object.keys(stats['sizes']).length + ' images reduced by ' + size_format(size_diff) + ' ( ' + size_percent.toFixed(2) + '% )<br>';
+                    html += 'Size before: ' + size_format(stats['size_before'], 2) + '<br>';
+                    html += 'Size after: ' + size_format(stats['size_after'], 2) + '<br></p>';
+                } else {
+                    html = '<button id="compress-' + id + '" class="compress button button-primary" type="button" data-id="' + id + '" style="width:100%;">Compress</button>';
+                    html += '<img id="progress-' + id + '" src="/wp-includes/js/thickbox/loadingAnimation.gif" style="width:100%; display:none;" alt=""/>';
+                }
+                button.parent().html(html);
               });
             }
             $('.compress').click(function(){
@@ -96,18 +120,17 @@ function abraia_media_javascript() {
 function abraia_compress_item() {
     $id = $_POST['id'];
     $meta = wp_get_attachment_metadata($id);
-    // print_r($meta);
     $stats = abraia_compress_image($id, $meta);
-    echo abraia_media_custom_cell($id, $stats);
+    echo json_encode($stats);
     wp_die();
 }
 
 function abraia_compress_image($id, $meta) {
     global $abraia;
     global $abraia_settings;
-    // TODO: Get post mime type -> Is it possible to get this value from meta?
     $stats = get_post_meta($id, '_wpa_stats', true);
-    if (empty($stats) && in_array(get_post_mime_type($id), ALLOWED_IMAGES)) {
+    // if (empty($stats) && in_array(get_post_mime_type($id), ALLOWED_IMAGES)) {
+    if (empty($stats) && in_array(wp_check_filetype($meta['file'])['type'], ALLOWED_IMAGES)) {
         $path = pathinfo(get_attached_file($id));
         $meta['sizes']['original'] = array('file' => $path['basename']);
         $stats = array('size_before' => 0, 'size_after' => 0, 'sizes' => array());
@@ -121,20 +144,21 @@ function abraia_compress_image($id, $meta) {
                 $size_after = 0;
                 if ($size_before > 15000) {
                     try {
+                        // TODO: Split abraia compression code as a funtion
                         if ($abraia_settings['resize']) {
                             $abraia->fromFile($image)->resize($abraia_settings['max_width'], $abraia_settings['max_height'], 'thumb')->toFile($temp);
                         } else {
                             $abraia->fromFile($image)->toFile($temp);
                         }
                         $size_after = filesize($temp);
+                        if ($size_after < $size_before) rename($temp, $image);
+                        else unlink($temp);
                     }
                     catch (APIError $e) {
-                        // echo $e;
                         // $stats = NULL;
                     }
                 }
-                if ($size_after > 0 && $size_after < $size_before) rename($temp, $image);
-                else $size_after = $size_before;
+                if (!($size_after > 0 && $size_after < $size_before)) $size_after = $size_before;
                 $stats['sizes'][$size]['size_before'] = $size_before;
                 $stats['sizes'][$size]['size_after'] = $size_after;
                 $stats['size_before'] += $size_before;
@@ -146,37 +170,10 @@ function abraia_compress_image($id, $meta) {
     return $stats;
 }
 
-
 add_filter('wp_generate_attachment_metadata','abraia_upload_filter', 10, 2);
 
 function abraia_upload_filter($meta, $id) {
     global $abraia_settings;
-    if ($abraia_settings['upload']) {
-        $stats = abraia_compress_image($id, $meta);
-    }
-    print_r($stats);
-    // $path = wp_upload_dir(); // get upload directory
-    // $file = $path['basedir'].'/'.$meta['file']; // Get full size image
-    // $files[] = $file; // Set up an array of image size urls
-    // foreach ($meta['sizes'] as $size) {
-    //     $files[] = $path['path'].'/'.$size['file'];
-    // }
-    // foreach ($files as $file) { // iterate through each image size
-    //     // Convert image to grayscale credit to http://ottopress.com/2011/customizing-wordpress-images/
-    //     list($orig_w, $orig_h, $orig_type) = @getimagesize($file);
-    //     $image = wp_load_image($file);
-    //     imagefilter($image, IMG_FILTER_GRAYSCALE);
-    //     switch ($orig_type) {
-    //         case IMAGETYPE_GIF:
-    //             imagegif( $image, $file );
-    //             break;
-    //         case IMAGETYPE_PNG:
-    //             imagepng( $image, $file );
-    //             break;
-    //         case IMAGETYPE_JPEG:
-    //             imagejpeg( $image, $file );
-    //             break;
-    //     }
-    // }
+    if ($abraia_settings['upload']) abraia_compress_image($id, $meta);
     return $meta;
 }
