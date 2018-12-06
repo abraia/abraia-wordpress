@@ -1,3 +1,6 @@
+[![abraia-wordpress release](https://img.shields.io/github/release/abraia/abraia-wordpress.svg)](https://github.com/abraia/abraia-wordpress/releases)
+![abraia-wordpress dependencies](https://img.shields.io/librariesio/github/abraia/abraia-wordpress.svg)
+
 # Abraia image optimization plugin for WordPress
 
 Automatically optimize images in your WordPress and Woocommerce site to speed
@@ -26,13 +29,13 @@ https://abraia.me/docs/image-optimization) technology.
 - View advanced compression stats per-attachment and library totals. -->
 
 Install the [Abraia WordPress plugin](
-https://github.com/abraia/abraia-wordpress/archive/v0.4.1.zip) now and start
+https://github.com/abraia/abraia-wordpress/archive/v0.4.3.zip) now and start
 optimizing images for free.
 
 ## Installation
 
 1. Download the [last version of the plugin](
-https://github.com/abraia/abraia-wordpress/archive/v0.4.1.zip).
+https://github.com/abraia/abraia-wordpress/archive/v0.4.3.zip).
 2. Install it via Plugins > Add New > Upload Plugin.
 3. Activate it and configure your API Keys to get everything
 working.
