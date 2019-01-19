@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c0ee0a2d7e3fd06f2052f104f25a04cf",
+    "content-hash": "d4768e6e9d2a28c9a123504dc0e49b87",
     "packages": [
         {
             "name": "abraia/abraia",
-            "version": "0.2.5",
+            "version": "0.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/abraia/abraia-php.git",
-                "reference": "fd83b8f69370c4ec5c1b8d14cabe9931a1e360aa"
+                "reference": "4a9c87ef33428182d479c505409272c7940fc2a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/abraia/abraia-php/zipball/fd83b8f69370c4ec5c1b8d14cabe9931a1e360aa",
-                "reference": "fd83b8f69370c4ec5c1b8d14cabe9931a1e360aa",
+                "url": "https://api.github.com/repos/abraia/abraia-php/zipball/4a9c87ef33428182d479c505409272c7940fc2a4",
+                "reference": "4a9c87ef33428182d479c505409272c7940fc2a4",
                 "shasum": ""
             },
             "require": {
@@ -53,7 +53,7 @@
                 "image-processing",
                 "php"
             ],
-            "time": "2018-12-01T19:16:57+00:00"
+            "time": "2019-01-19T11:10:28+00:00"
         }
     ],
     "packages-dev": [],

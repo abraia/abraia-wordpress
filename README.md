@@ -9,33 +9,33 @@ size.
 
 ## Description
 
-Resize and compress all your JPEG and PNG images in WordPress with the best
-parameters for each image based on its contain. It integrates the [Abraia
-services](https://abraia.me) to provide the best in class [image optimization](
-https://abraia.me/docs/image-optimization) technology.
+Resize and compress all the images and animations (JPEG, PNG, GIF, SVG, and
+WebP) in your WordPress with the best parameters for each image based on its
+contain. It integrates the [Abraia service](https://abraia.me) to provide the
+best in class [image optimization](https://abraia.me/docs/image-optimization)
+technology.
 
 ### Features
 
 - Optimize all your images in one click.
 - Optimize your images using advanced content-aware technology.
-- Automatically scale large images
-- Process JPEG, PNG, and WebP image files.
+- Process JPEG, PNG, GIF, SVG, and WebP image files.
+- Automatically scale large images in your media library.
 - Manually optimize images in the media library.
 - Automatically optimize images on upload.
 
-<!-- - Set maximum width and height and large images will automatically scale before being added to your media library.
-- Optimize any image in any directory.
+<!-- - Optimize any image in any directory.
 - Asynchronously auto-smush your attachments for super fast compression on upload.
 - View advanced compression stats per-attachment and library totals. -->
 
 Install the [Abraia WordPress plugin](
-https://github.com/abraia/abraia-wordpress/archive/v0.4.3.zip) now and start
+https://github.com/abraia/abraia-wordpress/archive/v0.4.4.zip) now and start
 optimizing images for free.
 
 ## Installation
 
 1. Download the [last version of the plugin](
-https://github.com/abraia/abraia-wordpress/archive/v0.4.3.zip).
+https://github.com/abraia/abraia-wordpress/archive/v0.4.4.zip).
 2. Install it via Plugins > Add New > Upload Plugin.
 3. Activate it and configure your API Key to get everything working.
 
@@ -50,11 +50,14 @@ your images.
 
 ## Manual optimization
 
-Also, you can manually optimize every JPEG and PNG image from the right column
-in the grid mode from the `Media Library`. Just press the button the individual
-button or select several images to compress them with the bulk option.
+Also, you can manually optimize every JPEG, PNG, GIF, SVG, and WebP image from
+the right column in the `Media Library` grid mode. Just press the individual
+`optimize` button or select several images to compress them with the bulk
+option.
 
 ![Abraia for wordpress plugin working on media library](images/abraia-wordpress-manual.png)
+
+You can also restore the original image pressing the `restore` button.
 
 ## Plugin settings
 

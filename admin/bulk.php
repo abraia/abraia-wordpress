@@ -156,28 +156,36 @@ function abraia_media_page() {
             <div class="abraia-column" style="margin: 0 10% 0 0;">
               <h1><?php esc_html_e('Saved', 'abraia') ?></h1>
               <br>
-              <h2><span id="percent-saved"><?php echo round($percent_saved) ?></span>% (<span id="saved"><?php echo size_format($saved, 2) ?></span>)</h2>
-              <p></p>
+              <h2><span id="saved"><?php echo size_format($saved, 2) ?></span> (<span id="percent-saved"><?php echo round($percent_saved) ?></span>%)</h2>
+			  <p></p>
               <div>
-                <span><?php esc_html_e('Original size', 'abraia') ?></span><span id="original" style="float:right;"><?php echo size_format($total_before, 2) ?></span>
+                <span><?php esc_html_e('Size now', 'abraia') ?></span>
                 <div class="abraia-progress">
-                  <div class="abraia-progress-bar" style="width:100%;background-color:#555">&nbsp;</div>
+                  <div id="optimized-bar" class="abraia-progress-bar" style="width:<?php echo round($total_after / $total_before * 100) ?>%">
+					<span id="optimized" style="float:right;font-weight:bold"><?php echo size_format($total_after, 2) ?></span>
+				  </div>
                 </div>
               </div>
-              <p></p>
+			  <p></p>
               <div>
-                <span><?php esc_html_e('Optimized size', 'abraia') ?></span><span id="optimized" style="float:right;"><?php echo size_format($total_after, 2) ?></span>
+                <span><?php esc_html_e('Size before', 'abraia') ?></span>
                 <div class="abraia-progress">
-                  <div id="optimized-bar" class="abraia-progress-bar" style="width:<?php echo round($total_after / $total_before * 100) ?>%">&nbsp;</div>
+                  <div class="abraia-progress-bar" style="width:100%;background-color:#555">
+                    <span id="original" style="float:right;font-weight:bold"><?php echo size_format($total_before, 2) ?></span>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="abraia-column">
-              <h1><?php esc_html_e('Account', 'abraia') ?></h1>
-              <div style="flex:1;background-color:#eee;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <div class="abraia-column" style="background-color:#fc0">
+              <h1><?php esc_html_e('Your Account', 'abraia') ?></h1>
+              <div style="flex:1;background-color:#fafafa;display:flex;flex-direction:column;align-items:center;justify-content:center">
                 <h2>Free Trial</h2>
                 <p>Credits: <?php echo $abraia_user['credits']; ?></p>
-                <p>Total optimized: <?php echo $abraia_user['transforms']; ?></p>
+                <div style="display:flex;width:calc(100% - 36px)">
+                  <div style="flex:50%;display:flex;align-items:center;justify-content:center;"><p>Total optimized</p></div>
+                  <div style="flex:50%"><p>Files: <b><?php echo $abraia_user['transforms']; ?></b><br>
+                    Data: <b><?php echo size_format($abraia_user['bandwidth'], 2); ?></b></p></div>
+                </div>
               </div>
             </div>
           </div>

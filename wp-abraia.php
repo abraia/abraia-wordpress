@@ -3,7 +3,7 @@
   Plugin name: Abraia
   Plugin URI: https://github.com/abraia/abraia-wordpress
   Description: Automatically optimize your images with Abraia.
-  Version: 0.4.3
+  Version: 0.4.4
   Author: Abraia Software
   Author URI: https://abraia.me
   Text Domain: wp-abraia
@@ -15,7 +15,7 @@ require_once 'vendor/autoload.php';
 $abraia = new Abraia\Abraia();
 $abraia_settings = array();
 
-const ALLOWED_IMAGES = array('image/jpeg', 'image/png', 'image/webp');
+const ALLOWED_IMAGES = array('image/jpeg', 'image/png', 'image/gif', 'image/svg+xml', 'image/webp');
 
 add_action('init', 'abraia_admin_init');
 

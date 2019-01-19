@@ -13,7 +13,8 @@ Most common operations can be easily performed using the fluent API. You just
 need to define the API Keys as environment variables (`ABRAIA_API_KEY` and
 `ABRAIA_API_SECRET`).
 
-Automatically optimize a JPEG, PNG, or WebP image without any parameterization.
+Automatically optimize JPEG, PNG, GIF, SVG, and WebP images without any
+parameterization.
 
 ```php
 $abraia = new Abraia\Abraia();

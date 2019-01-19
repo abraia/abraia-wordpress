@@ -1,6 +1,6 @@
 {
   "require": {
-    "abraia/abraia": "0.2.*"
+    "abraia/abraia": "0.3.*"
   },
   "config": {
     "optimize-autoloader": true
