@@ -27,7 +27,12 @@ class Client {
     }
 
     public function check() {
+      try {
         return $this->listFiles()['folders'][0]['name'];
+      }
+      catch (APIError $e) {
+        return NULL;
+      }
     }
 
     public function loadUser() {

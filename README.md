@@ -23,10 +23,10 @@ technology.
 - Automatically scale large images in your media library.
 - Manually optimize images in the media library.
 - Automatically optimize images on upload.
+- Integrated cloud backup with no additional cost.
 
 <!-- - Optimize any image in any directory.
-- Asynchronously auto-smush your attachments for super fast compression on upload.
-- View advanced compression stats per-attachment and library totals. -->
+- Asynchronously auto-smush your attachments for super fast compression on upload. -->
 
 Install the [Abraia WordPress plugin](
 https://github.com/abraia/abraia-wordpress/archive/v0.4.4.zip) now and start
