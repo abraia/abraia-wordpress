@@ -134,12 +134,16 @@ function abraia_compress_item() {
 function abraia_compress_image($id, $meta) {
     global $abraia;
     global $abraia_settings;
+    $max_width = $abraia_settings['max_width'];
+    $max_height = $abraia_settings['max_height'];
+    $min_size = $abraia_settings['min_size'] * 1000;
     $stats = get_post_meta($id, '_wpa_stats', true);
     if (empty($stats) && in_array(wp_check_filetype($meta['file'])['type'], ALLOWED_IMAGES)) {
         $path = pathinfo(get_attached_file($id));
         $meta['sizes']['original'] = array('file' => $path['basename']);
         $stats = array('size_before' => 0, 'size_after' => 0, 'sizes' => array());
         foreach ($meta['sizes'] as $size => $values) {
+            if (!$abraia_settings['thumbnails'] && ($size != 'original')) continue;
             $file = $values['file'];
             if (!empty($file)) {
                 $stats['sizes'][$size] = array();
@@ -147,11 +151,10 @@ function abraia_compress_image($id, $meta) {
                 $temp = path_join($path['dirname'], 'temp');
                 $size_before = filesize($image);
                 $size_after = 0;
-                if ($size_before > 15000) {
+                if ($size_before > $min_size) {
                     try {
-                        // TODO: Split abraia compression code as a funtion
                         if ($abraia_settings['resize']) {
-                            $abraia->fromFile($image)->resize($abraia_settings['max_width'], $abraia_settings['max_height'], 'thumb')->toFile($temp);
+                            $abraia->fromFile($image)->resize($max_width, $max_height, 'thumb')->toFile($temp);
                         } else {
                             $abraia->fromFile($image)->toFile($temp);
                         }
@@ -159,8 +162,9 @@ function abraia_compress_image($id, $meta) {
                         if ($size_after < $size_before) rename($temp, $image);
                         else unlink($temp);
                     }
-                    catch (APIError $e) {
-                        // $stats = NULL;
+                    // catch (APIError $e) {
+                    catch (Exception $e) {
+                        // print_r($e);
                     }
                 }
                 if (!($size_after > 0 && $size_after < $size_before)) $size_after = $size_before;

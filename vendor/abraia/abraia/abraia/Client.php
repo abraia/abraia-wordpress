@@ -15,10 +15,12 @@ class Client {
     protected $apiSecret;
 
     function __construct() {
-        $apiKey = getenv('ABRAIA_API_KEY');
-        $apiSecret = getenv('ABRAIA_API_SECRET');
-        $this->apiKey = ($apiKey === false) ? '' : $apiKey;
-        $this->apiSecret = ($apiSecret === false) ? '' : $apiSecret;
+        $key = getenv('ABRAIA_KEY');
+        if ($key) {
+          list($apiKey, $apiSecret) = explode(':', base64_decode($key));
+          $this->apiKey = ($apiKey === false) ? '' : $apiKey;
+          $this->apiSecret = ($apiSecret === false) ? '' : $apiSecret;
+        }
     }
 
     public function setApiKeys($apiKey, $apiSecret) {

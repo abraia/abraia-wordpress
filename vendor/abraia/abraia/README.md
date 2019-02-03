@@ -3,17 +3,28 @@
 
 # Abraia API client for PHP
 
-PHP client for [Abraia](https://abraia.me) services. It is used to transform
-and optimize (compress) images for web. Read more at [https://abraia.me/docs](
-https://abraia.me/docs).
+PHP client for [Abraia](https://abraia.me) services. It is used to smartly
+[optimize images for web](https://abraia.me/docs/image-optimization).
+
+## Install
+
+Install the PHP client:
+
+```sh
+composer install abraia/abraia
+```
+
+And configure your [free API key](https://abraia.me/docs/getting-started) as
+the `ABRAIA_KEY` environment variable:
+
+```sh
+export ABRAIA_KEY=your_api_key
+```
 
 ## Usage
 
-Most common operations can be easily performed using the fluent API. You just
-need to define the API Keys as environment variables (`ABRAIA_API_KEY` and
-`ABRAIA_API_SECRET`).
-
-Automatically optimize JPEG, PNG, GIF, SVG, and WebP images without any
+Most common operations can be easily performed using the fluent API.
+Automatically optimize your JPEG, PNG, GIF, SVG, and WebP images without any
 parameterization.
 
 ```php

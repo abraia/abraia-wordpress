@@ -11,17 +11,22 @@ add_action('admin_init', 'abraia_settings_init');
 
 function abraia_settings_init() {
     add_filter('jpeg_quality', function($arg){return 85;});
-
     register_setting('abraia', 'abraia_settings');
 }
 
 function get_abraia_settings() {
-    // register_setting('media', 'abraia_backup');
     $defaults = array(
       'api_key' => '',
       'resize' => true,
       'max_width' => 2000,
       'max_height' => 2000,
+      'thumbnails' => true,
+      'min_size' => 15,
+      'jpeg' => true,
+      'png' => true,
+      'gif' => true,
+      'svg' => true,
+      'webp' => true,
       'upload' => false
     );
     $abraia_settings = wp_parse_args(get_option('abraia_settings'), $defaults);
@@ -68,21 +73,40 @@ function abraia_settings_page() {
               <th scope="row"><?php esc_html_e('Resize larger images', 'abraia'); ?></th>
               <td>
                 <label for="abraia_settings[max_width]"><?php esc_html_e('Max Width', 'abraia'); ?></label>
-                <input name="abraia_settings[max_width]" step="1" min="0" type="number" class="small-text"
-                    value="<?php echo $abraia_settings['max_width'] ?>" />
+                <input name="abraia_settings[max_width]" step="1" min="0" type="number" class="small-text" value="<?php echo $abraia_settings['max_width'] ?>" />
                 <label for="abraia_settings[max_height]"><?php esc_html_e('Max Height', 'abraia'); ?></label>
-                <input name="abraia_settings[max_height]" step="1" min="0" type="number" class="small-text"
-                    value="<?php echo $abraia_settings['max_height'] ?>" />
-                <p><input name="abraia_settings[resize]" type="checkbox" value="1"
-                  <?php checked($abraia_settings['resize'], true, true); ?> />
+                <input name="abraia_settings[max_height]" step="1" min="0" type="number" class="small-text" value="<?php echo $abraia_settings['max_height'] ?>" />
+                <p><input name="abraia_settings[resize]" type="checkbox" value="1" <?php checked($abraia_settings['resize'], 1); ?> />
                   <label for="abraia_settings[resize]"><?php esc_html_e('Reduce unnecessarily large images to the specified maximum dimensions', 'abraia'); ?></label></p>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row"><?php esc_html_e('Compress thumbnails', 'abraia'); ?></th>
+              <td>
+                <p><input name="abraia_settings[thumbnails]" type="checkbox" value="1" <?php checked($abraia_settings['thumbnails'], 1); ?> />
+                  <label for="abraia_settings[thumbnails]"><?php esc_html_e('Compress generated thumbnails bigger than ', 'abraia'); ?></label>
+                  <input name="abraia_settings[min_size]" step="1" min="0" type="number" class="small-text" value="<?php echo $abraia_settings['min_size'] ?>" /> KB</p>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row"><?php esc_html_e('Formats to be optimized', 'abraia'); ?></th>
+              <td>
+                <p><input name="abraia_settings[jpeg]" type="checkbox" value="1" <?php checked($abraia_settings['jpeg'], 1); ?> />
+                  <label for="abraia_settings[jpeg]"><?php esc_html_e('Compress JPEG files', 'abraia'); ?></label></p>
+                <p><input name="abraia_settings[png]" type="checkbox" value="1" <?php checked($abraia_settings['png'], 1); ?> />
+                  <label for="abraia_settings[png]"><?php esc_html_e('Compress PNG files', 'abraia'); ?></label></p>
+                <p><input name="abraia_settings[gif]" type="checkbox" value="1" <?php checked($abraia_settings['gif'], 1); ?> />
+                  <label for="abraia_settings[gif]"><?php esc_html_e('Compress GIF files', 'abraia'); ?></label></p>
+                <p><input name="abraia_settings[svg]" type="checkbox" value="1" <?php checked($abraia_settings['svg'], 1); ?> />
+                  <label for="abraia_settings[svg]"><?php esc_html_e('Compress SVG files', 'abraia'); ?></label></p>
+                <p><input name="abraia_settings[webp]" type="checkbox" value="1" <?php checked($abraia_settings['webp'], 1); ?> />
+                  <label for="abraia_settings[webp]"><?php esc_html_e('Compress WebP files', 'abraia'); ?></label></p>
               </td>
             </tr>
             <tr>
               <th scope="row"><?php esc_html_e('Compress on upload', 'abraia'); ?></th>
               <td>
-                <p><input name="abraia_settings[upload]" type="checkbox" value="1"
-                  <?php checked($abraia_settings['upload'], 1); ?> />
+                <p><input name="abraia_settings[upload]" type="checkbox" value="1" <?php checked($abraia_settings['upload'], 1); ?> />
                   <label for="abraia_settings[upload]"><?php esc_html_e('Compress new images on upload', 'abraia'); ?></label></p>
               </td>
             </tr>

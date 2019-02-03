@@ -180,12 +180,10 @@ function abraia_media_page() {
               <h1><?php esc_html_e('Your Account', 'abraia') ?></h1>
               <div style="flex:1;background-color:#fafafa;display:flex;flex-direction:column;align-items:center;justify-content:center">
                 <h2>Free Trial</h2>
-                <p>Credits: <?php echo $abraia_user['credits']; ?></p>
-                <div style="display:flex;width:calc(100% - 36px)">
-                  <div style="flex:50%;display:flex;align-items:center;justify-content:center;"><p>Total optimized</p></div>
-                  <div style="flex:50%"><p>Files: <b><?php echo $abraia_user['transforms']; ?></b><br>
-                    Data: <b><?php echo size_format($abraia_user['bandwidth'], 2); ?></b></p></div>
-                </div>
+                <!-- <p>Credits: <?php echo $abraia_user['credits']; ?></p> -->
+			    <p style="text-align:center">Total optimized<br>
+                  <b style="font-size:1.5em"><?php echo size_format($abraia_user['bandwidth'], 2); ?></b><br>
+                  <b style="font-size:1.2em"><?php echo $abraia_user['transforms']; ?> files</b></p>
               </div>
             </div>
           </div>
@@ -205,8 +203,8 @@ function abraia_media_page() {
           var original = <?php echo $total_before ?>;
           var optimized = <?php echo $total_after ?>;
           var images = <?php echo json_encode($images); ?>;
-          function size_format(bytes, decimals = 0) {
-            var units = ['B', 'KB', 'MB', 'BG', 'TB'];
+          function sizeFormat(bytes, decimals = 0) {
+            var units = ['B', 'KB', 'MB', 'GB', 'TB'];
             var value = 0;
             var u = -1;
             do {
@@ -230,9 +228,9 @@ function abraia_media_page() {
               var stats = JSON.parse(response);
               original += stats['size_before'];
               optimized += stats['size_after'];
-              $('#original').text(size_format(original, 2));
-              $('#optimized').text(size_format(optimized, 2));
-              $('#saved').text(size_format(original - optimized, 2));
+              $('#original').text(sizeFormat(original, 2));
+              $('#optimized').text(sizeFormat(optimized, 2));
+              $('#saved').text(sizeFormat(original - optimized, 2));
               $('#percent-saved').text(Math.round((original - optimized) / original * 100));
               $('#optimized-bar').css({'width': Math.round(original / optimized * 100)});
               $('.progress-right .progress-bar').css({'transform': 'rotate(' + (((sum + k + 1) > total / 2) ? 180 : Math.round(360 * (sum + k + 1) / total)) + 'deg)'});
