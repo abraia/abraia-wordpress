@@ -33,9 +33,9 @@ function abraia_media_custom_cell($id, $stats) {
     if (!empty($stats)) {
         // print_r($stats);
         $size_diff = $stats['size_before'] - $stats['size_after'];
-        $size_percent = 100 * $size_diff / $stats['size_before'];
-        $html = '<p>New Size: <b>' . size_format($stats['size_after'], 2) . '</b><br>';
-        $html .= 'Saving: ' . size_format($size_diff) . ' ( <b>' . round($size_percent) . '%</b> )<br>';
+        $size_percent = 100 * $size_diff / ($stats['size_before'] + 0.000001);
+        $html = '<p>Saved: <b>' . size_format($size_diff) . '</b> ( ' . round($size_percent) . '% )<br>';
+        $html .= 'Size now: <i>' . size_format($stats['size_after'], 2) . '</i><br>';
         $html .= count($stats['sizes']) . ' images reduced<br></p>';
         $html .= '<button id="restore-'.$id.'" class="restore button" type="button" data-id="'.$id.'">Restore</button>';
     }
@@ -67,9 +67,9 @@ function abraia_media_javascript() {
               var html = '';
               if (stats) {
                 var size_diff = stats['size_before'] - stats['size_after'];
-                var size_percent = 100 * size_diff / stats['size_before'];
-                html = '<p>New Size: <b>' + size_format(stats['size_after'], 2) + '</b><br>';
-                html += 'Saving: ' + size_format(size_diff) + ' ( <b>' + Math.round(size_percent) + '%</b> )<br>';
+                var size_percent = 100 * size_diff / (stats['size_before'] + 0.000001);
+                html = '<p>Saved: <b>' + size_format(size_diff) + '</b> ( ' + Math.round(size_percent) + '% )<br>';
+                html += 'Size now: <i>' + size_format(stats['size_after'], 2) + '</i><br>';
                 html += Object.keys(stats['sizes']).length + ' images reduced<br></p>';
                 html += '<button id="restore-' + id + '" class="restore button" type="button" data-id="' + id + '">Restore</button>';
               } else {
@@ -202,7 +202,7 @@ function abraia_restore_image($id, $meta) {
                 try {
                     $abraia->fromStore($file)->toFile($image);
                 }
-                catch (APIError $e) {
+                catch (Exception $e) {
                     // $stats = NULL;
                 }
             }

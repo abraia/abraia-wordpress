@@ -10,11 +10,29 @@ function abraia_admin_style() {
 add_action('admin_init', 'abraia_settings_init');
 
 function abraia_settings_init() {
-    add_filter('jpeg_quality', function($arg){return 85;});
-    register_setting('abraia', 'abraia_settings');
+    add_filter('jpeg_quality', function($arg) { return 85; });
+    register_setting('abraia', 'abraia_settings', 'validate_abraia_settings');
+    $defaults = default_abraia_settings();
+    $options = wp_parse_args(get_option('abraia_settings'), $defaults);
+    update_option('abraia_settings', $options);
 }
 
+add_action('admin_menu', 'add_abraia_settings_page');
+
+function add_abraia_settings_page() {
+    add_options_page('Abraia settings', 'Abraia', 'manage_options', 'abraia', 'abraia_settings_page');
+}
+
+add_action('admin_notices', 'abraia_admin_notice');
+
 function get_abraia_settings() {
+    // $defaults = default_abraia_settings();
+    // $options = wp_parse_args(get_option('abraia_settings'), $defaults);
+    $options = get_option('abraia_settings');
+    return $options;
+}
+
+function default_abraia_settings() {
     $defaults = array(
       'api_key' => '',
       'resize' => true,
@@ -29,8 +47,19 @@ function get_abraia_settings() {
       'webp' => true,
       'upload' => false
     );
-    $abraia_settings = wp_parse_args(get_option('abraia_settings'), $defaults);
-    return $abraia_settings;
+    return $defaults;
+}
+
+function validate_abraia_settings($input) {
+    $input['resize'] = ($input['resize'] == 1) ? 1 : 0;
+    $input['thumbnails'] = ($input['thumbnails'] == 1) ? 1 : 0;
+    $input['jpeg'] = ($input['jpeg'] == 1) ? 1 : 0;
+    $input['png'] = ($input['png'] == 1) ? 1 : 0;
+    $input['gif'] = ($input['gif'] == 1) ? 1 : 0;
+    $input['svg'] = ($input['svg'] == 1) ? 1 : 0;
+    $input['webp'] = ($input['webp'] == 1) ? 1 : 0;
+    $input['upload'] = ($input['upload'] == 1) ? 1 : 0;
+    return $input;
 }
 
 function get_abraia_user() {
@@ -43,12 +72,6 @@ function get_abraia_user() {
         // echo 'Exception catched: ' . $e->getMessage();
     }
     return $abraia_user;
-}
-
-add_action('admin_menu', 'add_abraia_settings_page');
-
-function add_abraia_settings_page() {
-    add_options_page('Abraia settings', 'Abraia', 'manage_options', 'abraia', 'abraia_settings_page');
 }
 
 function abraia_settings_page() {
@@ -120,8 +143,6 @@ function abraia_settings_page() {
     <?php
 }
 
-add_action('admin_notices', 'abraia_admin_notice');
-
 function abraia_admin_notice() {
     $current_user = wp_get_current_user();
     $abraia_settings = get_abraia_settings();
@@ -148,6 +169,17 @@ function abraia_admin_notice() {
                 <form method="post" action="options.php">
                   <?php settings_fields('abraia'); ?>
                   <input type="text" name="abraia_settings[api_key]" value="<?php echo $abraia_settings['api_key']; ?>" />
+                  <input type="hidden" name="abraia_settings[resize]" value="<?php echo $abraia_settings['resize']; ?>">
+                  <input type="hidden" name="abraia_settings[max_width]" value="<?php echo $abraia_settings['max_width']; ?>">
+                  <input type="hidden" name="abraia_settings[max_height]" value="<?php echo $abraia_settings['max_height']; ?>">
+                  <input type="hidden" name="abraia_settings[thumbnails]" value="<?php echo $abraia_settings['thumbnails']; ?>">
+                  <input type="hidden" name="abraia_settings[min_size]" value="<?php echo $abraia_settings['min_size']; ?>">
+                  <input type="hidden" name="abraia_settings[jpeg]" value="<?php echo $abraia_settings['jpeg']; ?>">
+                  <input type="hidden" name="abraia_settings[png]" value="<?php echo $abraia_settings['png']; ?>">
+                  <input type="hidden" name="abraia_settings[gif]" value="<?php echo $abraia_settings['gif']; ?>">
+                  <input type="hidden" name="abraia_settings[svg]" value="<?php echo $abraia_settings['svg']; ?>">
+                  <input type="hidden" name="abraia_settings[webp]" value="<?php echo $abraia_settings['webp']; ?>">
+                  <input type="hidden" name="abraia_settings[upload]" value="<?php echo $abraia_settings['upload']; ?>">
                   <input type="submit" name="submit" class="button button-primary button-hero" value="<?php esc_html_e('Save API Key', 'abraia') ?>" />
                 </form>
               </div>

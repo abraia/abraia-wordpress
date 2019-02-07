@@ -3,7 +3,7 @@
   border: 1px solid #e5e5e5;
   box-shadow: 0 1px 1px rgba(0,0,0,.04);
   margin: 10px 20px 0 2px;
-  color: #333;
+  color: #444;
 }
 .abraia-panel .button {
   text-align: center;
@@ -11,7 +11,7 @@
   width: 100%;
 }
 .abraia-header {
-  background-color: #444;
+  background-color: #292f38;
   padding: 10px 20px;
 }
 .abraia-header h1 {
@@ -60,4 +60,82 @@
 }
 .abraia-footer {
   padding: 10px 20px;
+}
+.abraia-progress {
+  background-color: #eee;
+  color: #333;
+  height: 18px;
+}
+.abraia-progress-bar {
+  background-color: #fc0;
+  color: #fff;
+  height: 18px;
+  text-align: center;
+}
+.abraia-progress-bar > span {
+  float: right;
+  font-style: italic;
+  margin-right: 4px;
+}
+.abraia-circular {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  position: relative;
+}
+.abraia-circular > span {
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+}
+.abraia-circular .progress-bar {
+  width: 100%;
+  height: 100%;
+  background: none;
+  border-width: 12px;
+  border-color: #fc0;
+  box-sizing: border-box;
+  border-style: solid;
+  position: absolute;
+  top: 0;
+}
+.abraia-circular .progress-right {
+  right: 0;
+}
+.abraia-circular .progress-right .progress-bar {
+  left: -100%;
+  border-top-left-radius: 80px;
+  border-bottom-left-radius: 80px;
+  border-right: 0;
+  -webkit-transform-origin: center right;
+  transform-origin: center right;
+}
+.abraia-circular .progress-left {
+  left: 0;
+}
+.abraia-circular .progress-left .progress-bar {
+  left: 100%;
+  border-top-right-radius: 80px;
+  border-bottom-right-radius: 80px;
+  border-left: 0;
+  -webkit-transform-origin: center left;
+  transform-origin: center left;
+}
+.abraia-circular .progress-value {
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
+  background-color: #eee;
+  font-size: 24px;
+  line-height: 135px;
+  text-align: center;
+  position: absolute;
+  top: 5%;
+  left: 5%;
+}
+@media only screen and (max-width: 990px) {
+  .abraia-circular { margin-bottom: 20px; }
 }
