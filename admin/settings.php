@@ -80,17 +80,20 @@ function abraia_settings_page() {
     ?>
     <div class="abraia-panel">
       <div class="abraia-header">
-        <h1><?php esc_html_e('Settings', 'abraia'); ?> <span style="color:#fc0">Abraia</span></h1>
-        <p><?php esc_html_e('The smart web image optimization plugin', 'abraia'); ?></p>
+        <h1><span style="color:#fc0">Abraia</span> <span style="color:#aaa">/</span> <?php esc_html_e('Settings', 'abraia'); ?></h1>
+        <p style="color:#ccc"><?php esc_html_e('The smart web image optimization plugin', 'abraia'); ?></p>
       </div>
       <div class="abraia-content">
         <form method="post" action="options.php">
           <?php settings_fields('abraia'); ?>
-          <table class="form-table">
+          <div style="display:flex">
+          <table class="form-table" style="width:calc(100% - 240px);">
             <tr>
               <th scope="row"><?php esc_html_e('Abraia API Key', 'abraia'); ?></th>
-              <td><input type="text" name="abraia_settings[api_key]" value="<?php echo $abraia_settings['api_key']; ?>" style="width:75%;" />
-                <img src="<?php echo ($abraia_user) ? plugins_url('../assets/checkmark.png', __FILE__) :  plugins_url('../assets/delete.png', __FILE__); ?>" style="vertical-align:middle;width:28px;margin-left:16px"></td>
+              <td>
+                <input type="text" name="abraia_settings[api_key]" value="<?php echo $abraia_settings['api_key']; ?>" style="width:80%;" />
+                <img src="<?php echo ($abraia_user) ? plugins_url('../assets/checkmark.png', __FILE__) :  plugins_url('../assets/delete.png', __FILE__); ?>" style="vertical-align:middle;width:28px;margin-left:16px">
+              </td>
             </tr>
             <tr>
               <th scope="row"><?php esc_html_e('Resize larger images', 'abraia'); ?></th>
@@ -134,6 +137,13 @@ function abraia_settings_page() {
               </td>
             </tr>
           </table>
+          <div style="width:240px">
+            <div style="background-color:#fafafa;margin:0 0 0 16px;padding:15px;">
+              <p><b><?php esc_html_e('Support', 'abraia') ?></b><br><?php esc_html_e('If you have any question, doubt, or issue, just send us an email.', 'abraia') ?><br>
+              <a class="button button-primary" href="mailto:support@abraiasoftware.com?subject=Support Wordpress <?php echo ($abraia_user) ? $abraia_user['email'] : '' ?>"><?php esc_html_e('Get Support', 'abraia') ?></a></p>
+            </div>
+          </div>
+          </div>
           <p class="submit">
             <input type="submit" name="submit" class="button-primary" value="<?php esc_html_e('Save Changes', 'abraia') ?>" />
           </p>
@@ -153,7 +163,7 @@ function abraia_admin_notice() {
           <div class="abraia-header">
             <h2><?php esc_html_e('Welcome to', 'abraia') ?> <span style="color:#fc0">Abraia</span>!</h2>
             <span class="dashicons dashicons-dismiss" style="color: #fff;float: right;"></span>
-            <p><?php esc_html_e('The smart web image optimization plugin', 'abraia') ?></p>
+            <p style="color:#ccc"><?php esc_html_e('The smart web image optimization plugin', 'abraia') ?></p>
           </div>
           <div class="abraia-content">
             <div class="abraia-row">

@@ -28,7 +28,6 @@ function abraia_media_page() {
         else {
             $images[] = $image->ID;
         }
-        // $images[]= wp_get_attachment_url( $image->ID );
     }
     $saved = $total_before - $total_after;
     $total = count($query_images->posts);
@@ -38,13 +37,13 @@ function abraia_media_page() {
     ?>
       <div class="abraia-panel">
         <div class="abraia-header">
-          <h1><?php esc_html_e('Bulk', 'abraia') ?> <span style="color:#fc0">Abraia</span></h1>
-          <p><?php esc_html_e('Bulk image optimization', 'abraia') ?></p>
+          <h1><span style="color:#fc0">Abraia</span> <span style="color:#aaa">/</span> <?php esc_html_e('Bulk image optimization', 'abraia') ?></h1>
+          <p style="color:#ccc"><?php esc_html_e('The smart web image optimization plugin', 'abraia'); ?></p>
         </div>
         <div class="abraia-content">
           <div class="abraia-row">
             <div class="abraia-column">
-              <h1><?php esc_html_e('Optimized', 'abraia') ?></h1>
+              <h2><?php esc_html_e('Optimized', 'abraia') ?></h2>
               <div class="abraia-circular">
                 <span class="progress-left">
                   <span class="progress-bar" style="transform: rotate(<?php echo ($sum > $total / 2) ? round($percent * 360 - 180) : 0 ?>deg);"></span>
@@ -54,13 +53,11 @@ function abraia_media_page() {
                 </span>
                 <div class="progress-value"><span id="percent"><?php echo round(100 * $percent) ?></span>%</div>
               </div>
-              <h2>(<span id="sum"><?php echo $sum ?></span> / <?php echo $total ?>)</h2>
+              <p style="text-align:center;font-size:1.5em"><span id="sum"><?php echo $sum ?></span> <?php esc_html_e('images of', 'abraia') ?> <?php echo $total ?></p>
             </div>
             <div class="abraia-column" style="margin: 0 10% 0 0;">
-              <h1><?php esc_html_e('Saved', 'abraia') ?></h1>
-              <br>
-              <h2><b><span id="saved"><?php echo size_format($saved, 2) ?></span></b> ( <span id="percent-saved"><?php echo round($percent_saved) ?></span>% )</h2>
-			  <p></p>
+              <h2><?php esc_html_e('Saved', 'abraia') ?></h2>
+              <p style="text-align:center;font-size:2em"><b><span id="saved"><?php echo size_format($saved, 2) ?></span></b> ( <span id="percent-saved"><?php echo round($percent_saved) ?></span>% )</p>
               <div>
                 <span><?php esc_html_e('Size now', 'abraia') ?></span>
                 <div class="abraia-progress">
@@ -73,29 +70,27 @@ function abraia_media_page() {
               <div>
                 <span><?php esc_html_e('Size before', 'abraia') ?></span>
                 <div class="abraia-progress">
-                  <div class="abraia-progress-bar" style="width:100%;background-color:#555">
+                  <div class="abraia-progress-bar" style="width:100%;background-color:#292f38">
                     <span id="original"><?php echo size_format($total_before, 2) ?></span>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="abraia-column" style="background-color:#fc0">
-              <h1><?php esc_html_e('Your Account', 'abraia') ?></h1>
+            <div class="abraia-column" style="background-color:#292f38">
+              <h2 style="color:#fafafa"><?php esc_html_e('Your Account', 'abraia') ?></h2>
               <div style="flex:1;background-color:#fafafa;display:flex;flex-direction:column;align-items:center;justify-content:center">
-                <h2>Free Trial</h2>
-                <!-- <p>Credits: <?php echo $abraia_user['credits']; ?></p> -->
-			    				<p style="text-align:center">Total optimized<br>
-                  <b style="font-size:1.5em"><?php echo size_format($abraia_user['bandwidth'], 2); ?></b><br>
-                  <b style="font-size:1.2em"><?php echo $abraia_user['transforms']; ?> files</b></p>
+                <p style="text-align:center;font-size:1.5em"><?php esc_html_e('Available', 'abraia'); ?><br>
+                <span style="font-size:2em"><b><?php echo size_format($abraia_user['credits'] * 100000, 0); ?></b></span><br>
+                <a class="button button-secondary button-hero" style="background-color:#fc0;width:unset" href="https://abraia.me/payment/<?php echo ($abraia_user) ? '?email=' . $abraia_user['email'] : '' ?>" target="_blank"><?php esc_html_e('Buy More Megas', 'abraia'); ?></a></p>
               </div>
             </div>
           </div>
         </div>
         <div class="abraia-footer">
-          <div class="abraia-progress">
+          <div id="progress-background" class="abraia-progress">
             <div id="progress-bar" class="abraia-progress-bar" style="width:0%">&nbsp;</div>
           </div>
-          <button id="bulk" class="button button-primary button-hero" type="button" <?php echo ($sum == $total) ? 'disabled' : '' ?>>Bulk Optimization</button>
+          <button id="bulk" class="button button-primary button-hero" type="button" <?php echo ($sum == $total) ? 'disabled' : '' ?>><?php esc_html_e('Bulk Optimization', 'abraia'); ?></button>
         </div>
       </div>
       <script type="text/javascript">
@@ -142,6 +137,7 @@ function abraia_media_page() {
           var bulkButton = $('#bulk');
           bulkButton.click(function() {
             bulkButton.prop('disabled', true);
+            $('#progress-background').css({'background': 'url(/wp-includes/js/thickbox/loadingAnimation.gif)', 'background-repeat': 'no-repeat', 'background-size': '100% 100%'});
             images.reduce(function(pp, id, k) {
               return pp.then(function() { return compressImage(id, k) });
             }, $.when());

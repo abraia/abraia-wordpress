@@ -27,7 +27,6 @@ function abraia_admin_init() {
         if (current_user_can('upload_files')) {
             include('admin/media.php');
             include('admin/bulk.php');
-
             abraia_media_init();
         }
     }
