@@ -53,7 +53,11 @@ function abraia_media_page() {
                 </span>
                 <div class="progress-value"><span id="percent"><?php echo round(100 * $percent) ?></span>%</div>
               </div>
-              <p style="text-align:center;font-size:1.5em"><span id="sum"><?php echo $sum ?></span> <?php esc_html_e('images of', 'abraia') ?> <?php echo $total ?></p>
+              <p style="text-align:center;font-size:1.5em">
+			    <span id="progress-spinner" class="spinner" style="float:unset;vertical-align:top"></span>
+				<span id="sum"><?php echo $sum ?></span> <?php esc_html_e('images of', 'abraia') ?> <?php echo $total ?>
+                <span class="spinner" style="float:unset;vertical-align:top"></span>
+              </p>
             </div>
             <div class="abraia-column" style="margin: 0 10% 0 0;">
               <h2><?php esc_html_e('Saved', 'abraia') ?></h2>
@@ -87,7 +91,7 @@ function abraia_media_page() {
           </div>
         </div>
         <div class="abraia-footer">
-          <div id="progress-background" class="abraia-progress">
+          <div class="abraia-progress">
             <div id="progress-bar" class="abraia-progress-bar" style="width:0%">&nbsp;</div>
           </div>
           <button id="bulk" class="button button-primary button-hero" type="button" <?php echo ($sum == $total) ? 'disabled' : '' ?>><?php esc_html_e('Bulk Optimization', 'abraia'); ?></button>
@@ -137,7 +141,7 @@ function abraia_media_page() {
           var bulkButton = $('#bulk');
           bulkButton.click(function() {
             bulkButton.prop('disabled', true);
-            $('#progress-background').css({'background': 'url(/wp-includes/js/thickbox/loadingAnimation.gif)', 'background-repeat': 'no-repeat', 'background-size': '100% 100%'});
+            $('#progress-spinner').css({'visibility': 'visible'});
             images.reduce(function(pp, id, k) {
               return pp.then(function() { return compressImage(id, k) });
             }, $.when());
