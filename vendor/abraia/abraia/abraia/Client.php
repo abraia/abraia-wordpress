@@ -8,7 +8,6 @@ function endsWith( $str, $sub ) {
     return ( substr( $str, strlen( $str ) - strlen( $sub ) ) == $sub );
 }
 
-class APIError extends \Exception {}
 
 class Client {
     protected $apiKey;
@@ -28,24 +27,15 @@ class Client {
         $this->apiSecret = $apiSecret;
     }
 
-    public function check() {
-      try {
-        return $this->listFiles()['folders'][0]['name'];
-      }
-      catch (APIError $e) {
-        return NULL;
-      }
-    }
-
     public function loadUser() {
         $curl = curl_init(ABRAIA_API_URL . '/users');
         curl_setopt($curl, CURLOPT_USERPWD, $this->apiKey.':'.$this->apiSecret);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $resp = curl_exec($curl);
-        $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        if ($statusCode != 200)
-            throw new APIError('GET ' . $statusCode);
+        if ($code != 200)
+            throw new \Exception($resp, $code);
         return json_decode($resp, true);
     }
 
@@ -54,10 +44,10 @@ class Client {
         curl_setopt($curl, CURLOPT_USERPWD, $this->apiKey.':'.$this->apiSecret);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $resp = curl_exec($curl);
-        $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        if ($statusCode != 200)
-            throw new APIError('GET ' . $statusCode);
+        if ($code != 200)
+            throw new \Exception($resp, $code);
         return json_decode($resp, true);
     }
 
@@ -73,10 +63,10 @@ class Client {
             'Content-Length ' . strlen($data)
         ));
         $resp = curl_exec($curl);
-        $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        if ($statusCode != 201)
-            throw new APIError('POST ' . $statusCode);
+        if ($code != 201)
+            throw new \Exception($resp, $code);
         $resp = json_decode($resp, true);
         return $resp['file'];
     }
@@ -98,10 +88,10 @@ class Client {
             'Content-Length ' . strlen($data)
         ));
         $resp = curl_exec($curl);
-        $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        if ($statusCode != 201)
-            throw new APIError('POST ' . $statusCode);
+        if ($code != 201)
+            throw new \Exception($resp, $code);
         $resp = json_decode($resp, true);
         $uploadURL = $resp['uploadURL'];
         $file = fopen($filename, 'r');
@@ -112,10 +102,10 @@ class Client {
         curl_setopt($curl, CURLOPT_INFILESIZE, filesize($filename));
         $resp = curl_exec($curl);
         fclose($file);
-        $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        if ($statusCode != 200)
-            throw new APIError('POST ' . $statusCode);
+        if ($code != 200)
+            throw new \Exception($resp, $code);
         return array(
             "name" => $name,
             "source" => $source
@@ -134,10 +124,10 @@ class Client {
             'Content-Length ' . strlen($data)
         ));
         $resp = curl_exec($curl);
-        $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        if ($statusCode != 201)
-            throw new APIError('POST ' . $statusCode);
+        if ($code != 201)
+            throw new \Exception($resp, $code);
         $resp = json_decode($resp, true);
         return $resp['file'];
     }
@@ -150,10 +140,10 @@ class Client {
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_BINARYTRANSFER, 1);
         $resp = curl_exec($curl);
-        $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close ($curl);
-        if ($statusCode != 200)
-            throw new APIError('GET ' . $statusCode);
+        if ($code != 200)
+            throw new \Exception($resp, $code);
         return $resp;
     }
 
@@ -163,10 +153,10 @@ class Client {
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $resp = curl_exec($curl);
-        $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        if ($statusCode != 200)
-            throw new APIError('DELETE ' . $statusCode);
+        if ($code != 200)
+            throw new \Exception($resp, $code);
         return json_decode($resp, true);
     }
 
@@ -180,10 +170,10 @@ class Client {
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_BINARYTRANSFER, 1);
         $resp = curl_exec($curl);
-        $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close ($curl);
-        if ($statusCode != 200)
-            throw new APIError('GET ' . $statusCode);
+        if ($code != 200)
+            throw new \Exception($resp, $code);
         return $resp;
     }
 }

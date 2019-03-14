@@ -21,7 +21,6 @@ class ComposerStaticInitdbc2a1186e4e67ef69d17b22e6a88866
     );
 
     public static $classMap = array (
-        'Abraia\\APIError' => __DIR__ . '/..' . '/abraia/abraia/abraia/Client.php',
         'Abraia\\Abraia' => __DIR__ . '/..' . '/abraia/abraia/abraia/Abraia.php',
         'Abraia\\Client' => __DIR__ . '/..' . '/abraia/abraia/abraia/Client.php',
     );

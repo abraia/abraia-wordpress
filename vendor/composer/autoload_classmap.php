@@ -6,7 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Abraia\\APIError' => $vendorDir . '/abraia/abraia/abraia/Client.php',
     'Abraia\\Abraia' => $vendorDir . '/abraia/abraia/abraia/Abraia.php',
     'Abraia\\Client' => $vendorDir . '/abraia/abraia/abraia/Client.php',
 );

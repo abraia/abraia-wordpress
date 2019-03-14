@@ -52,71 +52,71 @@ function abraia_media_javascript() {
       ?>
         <script type="text/javascript">
         jQuery(document).ready(function($) {
-            function size_format(bytes, decimals = 0) {
-              var units = ['B', 'KB', 'MB', 'BG', 'TB'];
-              var value = 0;
-              var u = -1;
-              do {
-                value = bytes;
-                bytes /= 1024;
-                u += 1;
-              } while (bytes >= 1 && u < units.length);
-              return value.toFixed(decimals) + ' ' + units[u];
+          function sizeFormat(bytes, decimals = 0) {
+            var units = ['B', 'KB', 'MB', 'GB', 'TB'];
+            var value = 0;
+            for (var u = 0; u < units.length; u++) {
+              value = bytes;
+              bytes /= 1024;
+              if (bytes < 1) break;
             }
-            function renderCustomCell(id, stats) {
-              var html = '';
-              if (stats) {
-                var size_diff = stats['size_before'] - stats['size_after'];
-                var size_percent = 100 * size_diff / (stats['size_before'] + 0.000001);
-                html = '<p>Saved: <b>' + size_format(size_diff) + '</b> ( ' + Math.round(size_percent) + '% )<br>';
-                html += 'Size now: <i>' + size_format(stats['size_after'], 2) + '</i><br>';
-                html += Object.keys(stats['sizes']).length + ' images reduced<br></p>';
-                html += '<button id="restore-' + id + '" class="restore button" type="button" data-id="' + id + '">Restore</button>';
-              } else {
-                html = '<button id="compress-' + id + '" class="compress button button-primary" type="button" data-id="' + id + '" style="width:100%;">Optimize</button>';
-              }
-              html += '<img id="progress-' + id + '" src="/wp-includes/js/thickbox/loadingAnimation.gif" style="width:100%; display:none;" alt=""/>';
-              return html;
+            return value.toFixed(decimals) + ' ' + units[u];
+          }
+          function renderCustomCell(id, stats) {
+            var html = '';
+            if (stats) {
+              var size_diff = stats['size_before'] - stats['size_after'];
+              var size_percent = 100 * size_diff / (stats['size_before'] + 0.000001);
+              html = '<p>Saved: <b>' + sizeFormat(size_diff) + '</b> ( ' + Math.round(size_percent) + '% )<br>';
+              html += 'Size now: <i>' + sizeFormat(stats['size_after'], 2) + '</i><br>';
+              html += Object.keys(stats['sizes']).length + ' images reduced<br></p>';
+              html += '<button id="restore-' + id + '" class="restore button" type="button" data-id="' + id + '">Restore</button>';
+            } else {
+              html = '<button id="compress-' + id + '" class="compress button button-primary" type="button" data-id="' + id + '" style="width:100%;">Optimize</button>';
             }
-            function compressImage(id) {
-              $('#progress-'+id).show();
-              $('#compress-'+id).hide();
-              return $.post(ajaxurl, { action: 'compress_item', id: id }, function(resp) {
-                var stats = JSON.parse(resp);
-                var html = renderCustomCell(id, stats);
-                $('#compress-'+id).parent().html(html);
-                $('#restore-'+id).click(function(){ restoreImage(id); });
-              });
-            }
-            function restoreImage(id) {
-              $('#progress-'+id).show();
-              $('#restore-'+id).hide();
-              return $.post(ajaxurl, { action: 'restore_item', id: id }, function(resp) {
-                var stats = JSON.parse(resp);
-                var html = renderCustomCell(id, null);
-                $('#restore-'+id).parent().html(html);
-                $('#compress-'+id).click(function(){ compressImage(id); });
-              });
-            }
-            $('.compress').click(function(){ compressImage($(this).data('id')); });
-            $('.restore').click(function(){ restoreImage($(this).data('id')); });
-            var bulkSelector = $('#bulk-action-selector-top');
-            var bulkAction = $('#doaction');
-            bulkSelector.append($('<option>', { value: 'compress', text: 'Compress images' }));
-            bulkSelector.change(function() {
-              bulkAction.prop('type', (bulkSelector.val() === 'compress') ? 'button' : 'submit');
+            html += '<img id="progress-' + id + '" src="/wp-includes/js/thickbox/loadingAnimation.gif" style="width:100%; display:none;" alt=""/>';
+            return html;
+          }
+          function compressImage(id) {
+            $('#progress-'+id).show();
+            $('#compress-'+id).hide();
+            return $.post(ajaxurl, { action: 'compress_item', id: id }, function(resp) {
+              console.log(resp);
+              var stats = JSON.parse(resp);
+              var html = renderCustomCell(id, stats);
+              $('#compress-'+id).parent().html(html);
+              $('#restore-'+id).click(function(){ restoreImage(id); });
             });
-            bulkAction.click(function() {
-              if (bulkSelector.val() === 'compress') {
-                var ids = [];
-                $('tbody#the-list').find('input[name="media[]"]').each(function () {
-                  if ($(this).prop('checked')) ids.push($(this).val());
-                });
-                ids.reduce(function(pp, id) {
-                  return pp.then(function() { return compressImage(id) });
-                }, $.when());
-              }
+          }
+          function restoreImage(id) {
+            $('#progress-'+id).show();
+            $('#restore-'+id).hide();
+            return $.post(ajaxurl, { action: 'restore_item', id: id }, function(resp) {
+              var stats = JSON.parse(resp);
+              var html = renderCustomCell(id, null);
+              $('#restore-'+id).parent().html(html);
+              $('#compress-'+id).click(function(){ compressImage(id); });
             });
+          }
+          $('.compress').click(function(){ compressImage($(this).data('id')); });
+          $('.restore').click(function(){ restoreImage($(this).data('id')); });
+          var bulkSelector = $('#bulk-action-selector-top');
+          var bulkAction = $('#doaction');
+          bulkSelector.append($('<option>', { value: 'compress', text: 'Compress images' }));
+          bulkSelector.change(function() {
+            bulkAction.prop('type', (bulkSelector.val() === 'compress') ? 'button' : 'submit');
+          });
+          bulkAction.click(function() {
+            if (bulkSelector.val() === 'compress') {
+              var ids = [];
+              $('tbody#the-list').find('input[name="media[]"]').each(function () {
+                if ($(this).prop('checked')) ids.push($(this).val());
+              });
+              ids.reduce(function(pp, id) {
+                return pp.then(function() { return compressImage(id) });
+              }, $.when());
+            }
+          });
         });
         </script>
       <?php
@@ -134,9 +134,9 @@ function abraia_compress_item() {
 function abraia_compress_image($id, $meta) {
     global $abraia;
     global $abraia_settings;
-    $max_width = $abraia_settings['max_width'];
-    $max_height = $abraia_settings['max_height'];
     $min_size = $abraia_settings['min_size'] * 1000;
+    $max_width = $abraia_settings['resize'] ? $abraia_settings['max_width'] : 0;
+    $max_height = $abraia_settings['resize'] ? $abraia_settings['max_height'] : 0;
     $stats = get_post_meta($id, '_wpa_stats', true);
     if (empty($stats) && in_array(wp_check_filetype($meta['file'])['type'], ALLOWED_IMAGES)) {
         $path = pathinfo(get_attached_file($id));
@@ -153,18 +153,16 @@ function abraia_compress_image($id, $meta) {
                 $size_after = 0;
                 if ($size_before > $min_size) {
                     try {
-                        if ($abraia_settings['resize']) {
-                            $abraia->fromFile($image)->resize($max_width, $max_height, 'thumb')->toFile($temp);
-                        } else {
-                            $abraia->fromFile($image)->toFile($temp);
-                        }
+                        $abraia->fromFile($image)->resize($max_width, $max_height, 'thumb')->toFile($temp);
                         $size_after = filesize($temp);
                         if ($size_after < $size_before) rename($temp, $image);
                         else unlink($temp);
-                    }
-                    // catch (APIError $e) {
-                    catch (Exception $e) {
-                        // print_r($e);
+                    } catch (Exception $e) {
+                        // print_r($e->getCode() . $e->getMessage());
+                        if ($e->getCode() === 403) {
+                            $stats = NULL;
+                            break;
+                        }
                     }
                 }
                 if (!($size_after > 0 && $size_after < $size_before)) $size_after = $size_before;
@@ -201,8 +199,7 @@ function abraia_restore_image($id, $meta) {
                 $image = path_join($path['dirname'], $file);
                 try {
                     $abraia->fromStore($file)->toFile($image);
-                }
-                catch (Exception $e) {
+                } catch (Exception $e) {
                     // $stats = NULL;
                 }
             }

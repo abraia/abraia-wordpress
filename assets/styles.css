@@ -7,8 +7,16 @@
 }
 .abraia-panel .button {
   text-align: center;
-  margin-top: 22px;
   width: 100%;
+}
+.abraia-panel .button.is-yellow {
+  background-color: #fc0;
+}
+.abraia-panel .is-light {
+  background-color: #fafafa;
+}
+.abraia-panel .is-dark {
+  background-color: #292f38;
 }
 .abraia-header {
   background-color: #292f38;
@@ -29,6 +37,32 @@
 .abraia-header p {
   color: #fafafa;
   margin: .5em 0;
+}
+.abraia-header p.is-gray {
+  color: #ccc;
+}
+.abraia-header span.is-yellow {
+  color: #fc0;
+}
+.abraia-message {
+  background-color: #fc0;
+  padding: 10px 20px;
+}
+.abraia-message h2 {
+  font-size: 21px;
+  font-weight: 400;
+  margin: .5em 0;
+}
+.abraia-message .button {
+  font-size: 16px;
+  line-height: 40px;
+  padding: 0 36px;
+  height: 40px;
+  float: right;
+  width: unset;
+}
+.abraia-message span {
+  color: #fafafa;
 }
 .abraia-content {
   padding: 10px 20px;
@@ -55,8 +89,26 @@
   flex-direction: column;
   padding: 10px;
 }
+.abraia-column p.is-centered {
+  text-align: center;
+}
+.abraia-column p.is-1 {
+  font-size: 2em;
+}
+.abraia-column p.is-2 {
+  font-size: 1.5em;
+}
+.abraia-column span.is-1 {
+  font-size: 2em;
+}
 .abraia-column input {
   width: 100%;
+}
+.abraia-column input.is-green {
+  background-color: #32bea6;
+}
+.abraia-column input.is-red {
+  background-color: #e04f5f;
 }
 .abraia-footer {
   padding: 10px 20px;
@@ -71,6 +123,9 @@
   color: #fff;
   height: 18px;
   text-align: center;
+}
+.abraia-progress-bar.is-dark {
+  background-color: #292f38;
 }
 .abraia-progress-bar > span {
   float: right;
@@ -138,4 +193,9 @@
 }
 @media only screen and (max-width: 990px) {
   .abraia-circular { margin-bottom: 20px; }
+}
+@media screen and (max-width:768px) {
+  .abraia-row {
+    flex-direction: column;
+  }
 }

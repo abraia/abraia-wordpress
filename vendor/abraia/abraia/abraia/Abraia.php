@@ -9,38 +9,50 @@ class Abraia extends Client {
     protected $params;
     protected $userid;
 
-    function __construct() {
+    function __construct($folder='') {
         parent::__construct();
+        $this->folder = $folder;
+        $this->userid = $this->getUserId();
+    }
+
+    private function getUserId() {
+        try {
+            return $this->user()['id'];
+        } catch (\Exception $e) {
+            return NULL;
+        }
     }
 
     function setKey($key) {
         list($apiKey, $apiSecret) = explode(':', base64_decode($key));
         $this->setApiKeys($apiKey, $apiSecret);
-        $this->userid = $this->check();
+        $this->userid = $this->getUserId();
+    }
+
+
+    function user() {
+      return $this->loadUser()['user'];
     }
 
     function files($path='') {
-        return $this->listFiles($path);
+        return $this->listFiles($this->userid . '/' . $path);
     }
 
     function fromFile($path) {
-        if (!$this->userid) $this->userid = $this->check();
-        $resp = $this->uploadFile($path, $this->userid . '/');
+        $resp = $this->uploadFile($path, $this->userid . '/' . $this->folder);
         $this->path = $resp['source'];
         $this->params = array('q' => 'auto');
         return $this;
     }
 
     function fromUrl($url) {
-        if (!$this->userid) $this->userid = $this->check();
-        $resp = $this->uploadRemote($url, $this->userid . '/');
+        $resp = $this->uploadRemote($url, $this->userid . '/' . $this->folder);
         $this->path = $resp['source'];
         $this->params = array('q' => 'auto');
         return $this;
     }
 
     function fromStore($path) {
-        if (!$this->userid) $this->userid = $this->check();
         $this->path = $this->userid . '/' . $path;
         $this->params = array();
         return $this;

@@ -1,17 +1,17 @@
 [
     {
         "name": "abraia/abraia",
-        "version": "0.4.0",
-        "version_normalized": "0.4.0.0",
+        "version": "0.4.3",
+        "version_normalized": "0.4.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/abraia/abraia-php.git",
-            "reference": "e9b7feb4bdd0e669cac7e5cea111f0840c6fa40e"
+            "reference": "e1d4bf4a61b8ded5b7d1e6468528aeb03fab1f2d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/abraia/abraia-php/zipball/e9b7feb4bdd0e669cac7e5cea111f0840c6fa40e",
-            "reference": "e9b7feb4bdd0e669cac7e5cea111f0840c6fa40e",
+            "url": "https://api.github.com/repos/abraia/abraia-php/zipball/e1d4bf4a61b8ded5b7d1e6468528aeb03fab1f2d",
+            "reference": "e1d4bf4a61b8ded5b7d1e6468528aeb03fab1f2d",
             "shasum": ""
         },
         "require": {
@@ -20,9 +20,10 @@
             "php": ">=5.6.0"
         },
         "require-dev": {
+            "php-coveralls/php-coveralls": "^2.1",
             "phpunit/phpunit": "^5"
         },
-        "time": "2019-01-28T15:32:11+00:00",
+        "time": "2019-03-11T17:20:18+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

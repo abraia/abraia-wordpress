@@ -1,5 +1,6 @@
 [![PHP version](https://badge.fury.io/ph/abraia%2Fabraia.svg)](https://badge.fury.io/ph/abraia%2Fabraia)
 [![Build Status](https://travis-ci.org/abraia/abraia-php.svg)](https://travis-ci.org/abraia/abraia-php)
+[![Coverage Status](https://coveralls.io/repos/github/abraia/abraia-php/badge.svg)](https://coveralls.io/github/abraia/abraia-php)
 
 # Abraia API client for PHP
 
