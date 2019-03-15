@@ -1,0 +1,229 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Abraia\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-14 22:22+0000\n"
+"PO-Revision-Date: 2019-03-15 09:54+0000\n"
+"Last-Translator: jrrodri <jorge@abraiasoftware.com>\n"
+"Language-Team: Español\n"
+"Language: es-ES\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.2.1; wp-5.1.1"
+
+#: admin/settings.php:81
+msgid "Settings"
+msgstr "Configuración"
+
+#: admin/settings.php:82 admin/settings.php:164 admin/bulk.php:41
+msgid "The smart web image optimization plugin"
+msgstr "El plugin de optimización de imagen inteligente "
+
+#: admin/settings.php:90
+msgid "Abraia API Key"
+msgstr ""
+
+#: admin/settings.php:97
+msgid "Resize larger images"
+msgstr "Redimensionar imágenes de más de"
+
+#: admin/settings.php:99
+msgid "Max Width"
+msgstr "Ancho máximo"
+
+#: admin/settings.php:101
+msgid "Max Height"
+msgstr "Alto máximo"
+
+#: admin/settings.php:104
+msgid "Reduce unnecessarily large images to the specified maximum dimensions"
+msgstr ""
+"Reducir imágenes innecesariamente más grandes que las dimensiones especificadas"
+
+#: admin/settings.php:108
+msgid "Compress thumbnails"
+msgstr "Comprimir miniaturas"
+
+#: admin/settings.php:111
+msgid "Compress generated thumbnails bigger than "
+msgstr "Comprimir miniaturas generadas de más de"
+
+#: admin/settings.php:116
+msgid "Formats to be optimized"
+msgstr "Fomatos que serán optimizados"
+
+#: admin/settings.php:119
+msgid "Compress JPEG files"
+msgstr "Comprimir archivos JPEG"
+
+#: admin/settings.php:121
+msgid "Compress PNG files"
+msgstr "Comprimir archivos PNG"
+
+#: admin/settings.php:123
+msgid "Compress GIF files"
+msgstr "Comprimir archivos GIF"
+
+#: admin/settings.php:125
+msgid "Compress SVG files"
+msgstr "Comprimir archivos SVG"
+
+#: admin/settings.php:127
+msgid "Compress WebP files"
+msgstr "Comprimir archivos WebP"
+
+#: admin/settings.php:131
+msgid "Compress on upload"
+msgstr "Comprimir al subir"
+
+#: admin/settings.php:134
+msgid "Compress new images on upload"
+msgstr "Comprimir nuevas imágenes al subirlas"
+
+#: admin/settings.php:140
+msgid "Support"
+msgstr "Soporte"
+
+#: admin/settings.php:140
+msgid "If you have any question, doubt, or issue, just send us an email."
+msgstr ""
+"Si tienes alguna pregunta, duda o problema, simplemente envíanos un email."
+
+#: admin/settings.php:141
+msgid "Get Support"
+msgstr "Obtén soporte"
+
+#: admin/settings.php:146
+msgid "Save Changes"
+msgstr "Grabar cambios"
+
+#: admin/settings.php:162
+msgid "Welcome!"
+msgstr "¡Bienvenido!"
+
+#: admin/settings.php:169
+msgid "Get your FREE API Key"
+msgstr "Obtén tu API Key GRATUITA"
+
+#: admin/settings.php:170
+msgid "Enter your email"
+msgstr "Introduce tu dirección de email"
+
+#: admin/settings.php:172
+msgid "Get API Key"
+msgstr "Obtener API Key"
+
+#: admin/settings.php:175
+msgid "Enter your FREE API Key"
+msgstr "Introduce tu API Key GRATUITA"
+
+#: admin/settings.php:176
+msgid "Enter your API Key"
+msgstr "Introduce tu API Key"
+
+#: admin/settings.php:191
+msgid "Save API Key"
+msgstr "Guardar API Key"
+
+#: admin/settings.php:195
+msgid "Optimize your images"
+msgstr "Optimiza tus imágenes"
+
+#: admin/settings.php:196
+msgid "API Status"
+msgstr "Estado de la API"
+
+#: admin/settings.php:197
+msgid "Everything OK"
+msgstr "Todo está correcto"
+
+#: admin/settings.php:197
+msgid "Wrong API Key"
+msgstr "API Key Incorrecta"
+
+#: admin/settings.php:198
+msgid "Optimize images"
+msgstr "Optimiza imágenes"
+
+#: admin/settings.php:208 admin/bulk.php:88
+msgid "Buy More Megas"
+msgstr "Comprar más Megas"
+
+#: admin/settings.php:209
+msgid "Your optimization quote is expiring!"
+msgstr "¡Tu cuota de optimización se está acabando!"
+
+#: admin/media.php:19
+msgid "Abraia Compression"
+msgstr "Abraia Compresión"
+
+#: admin/bulk.php:6
+msgid "Bulk Abraia"
+msgstr ""
+
+#: admin/bulk.php:40
+msgid "Bulk image optimization"
+msgstr "Optimización de todas las imágenes"
+
+#: admin/bulk.php:46
+msgid "Optimized"
+msgstr "Optimizado"
+
+#: admin/bulk.php:58
+msgid "images of"
+msgstr "imágenes de"
+
+#: admin/bulk.php:63
+msgid "Saved"
+msgstr "Ahorrado"
+
+#: admin/bulk.php:66
+msgid "Size now"
+msgstr "Tamaño ahora"
+
+#: admin/bulk.php:75
+msgid "Size before"
+msgstr "Tamaño antes"
+
+#: admin/bulk.php:84
+msgid "Your Account"
+msgstr "Tu Cuenta"
+
+#: admin/bulk.php:86
+msgid "Available"
+msgstr "Disponible"
+
+#: admin/bulk.php:89
+msgid "Total processed"
+msgstr "Total procesado"
+
+#: admin/bulk.php:89
+msgid "images and"
+msgstr "imágenes y"
+
+#: admin/bulk.php:100
+msgid "Bulk Optimization"
+msgstr "Optimizar todo"
+
+#. Name of the plugin
+msgid "Abraia"
+msgstr ""
+
+#. Description of the plugin
+msgid "Automatically optimize your images with Abraia."
+msgstr "Automáticamente optimizar imágenes con Abraia."
+
+#. URI of the plugin
+msgid "https://github.com/abraia/abraia-wordpress"
+msgstr ""
+
+#. Author of the plugin
+msgid "Abraia Software"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://abraia.me"
+msgstr ""

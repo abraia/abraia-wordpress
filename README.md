@@ -21,21 +21,18 @@ technology.
 - Optimize your images using advanced content-aware technology.
 - Process JPEG, PNG, GIF, SVG, and WebP image files.
 - Automatically scale large images in your media library.
+- Integrated cloud backup with no additional cost.
 - Manually optimize images in the media library.
 - Automatically optimize images on upload.
-- Integrated cloud backup with no additional cost.
-
-<!-- - Optimize any image in any directory.
-- Asynchronously auto-smush your attachments for super fast compression on upload. -->
 
 Install the [Abraia WordPress plugin](
-https://github.com/abraia/abraia-wordpress/archive/v0.4.6.zip) now and start
+https://github.com/abraia/abraia-wordpress/archive/v0.5.zip) now and start
 optimizing images for free.
 
 ## Installation
 
 1. Download the [last version of the plugin](
-https://github.com/abraia/abraia-wordpress/archive/v0.4.6.zip).
+https://github.com/abraia/abraia-wordpress/archive/v0.5.zip).
 2. Install it via Plugins > Add New > Upload Plugin.
 3. Activate it and configure your API Key to get everything working.
 

@@ -159,7 +159,7 @@ function abraia_compress_image($id, $meta) {
                         else unlink($temp);
                     } catch (Exception $e) {
                         // print_r($e->getCode() . $e->getMessage());
-                        if ($e->getCode() === 403) {
+                        if ($e->getCode() === 402) {
                             $stats = NULL;
                             break;
                         }
