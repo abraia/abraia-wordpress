@@ -29,6 +29,9 @@ class Abraia extends Client {
         $this->userid = $this->getUserId();
     }
 
+    function setFolder($folder) {
+        $this->folder = $folder;
+    }
 
     function user() {
       return $this->loadUser()['user'];

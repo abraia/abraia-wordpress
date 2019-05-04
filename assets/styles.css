@@ -1,48 +1,116 @@
+.button.is-yellow {
+  background-color: #fc0;
+  box-shadow: none;
+  border: 0;
+  color: #333;
+}
+.button.is-yellow:hover {
+  background-color: rgba(255,204,0,.9);
+  color: rgba(51,51,51,.9);
+}
+.button.is-blue {
+  background-color: #0085ba;
+  box-shadow: none;
+  border: 0;
+  color: #fafafa;
+}
+.button.is-blue:hover {
+  background-color: rgba(0,133,186,.9);
+  color: rgba(250,250,250,.9);
+}
+.button.is-dark {
+  background-color: #292f38;
+  box-shadow: none;
+  border: 0;
+  color: #fafafa;
+}
+.button.is-dark:hover {
+  background-color: rgba(41,47,56,.9);
+  color: rgba(250,250,250,.9);
+}
 .abraia-panel {
   background-color: #fff;
   border: 1px solid #e5e5e5;
   box-shadow: 0 1px 1px rgba(0,0,0,.04);
   margin: 10px 20px 0 2px;
+  flex-grow: 1;
   color: #444;
 }
 .abraia-panel .button {
   text-align: center;
   width: 100%;
 }
-.abraia-panel .button.is-yellow {
-  background-color: #fc0;
-}
-.abraia-panel .is-light {
+.abraia-panel .is-light,
+.abraia-panel .is-light h1,
+.abraia-panel .is-light h2 {
   background-color: #fafafa;
+  color: #333;
 }
-.abraia-panel .is-dark {
+.abraia-panel .is-dark,
+.abraia-panel .is-dark h1,
+.abraia-panel .is-dark h2 {
   background-color: #292f38;
+  color: #fafafa;
+}
+.abraia-panel .is-yellow {
+  background-color: #fc0;
+  color: #333;
+}
+.abraia-panel .is-green {
+  background-color: #32bea6;
+}
+.abraia-panel .is-red {
+  background-color: #e04f5f;
+}
+.abraia-panel .is-centered {
+  text-align: center;
+}
+.abraia-panel .is-fullwidth {
+  width: 100%;
+}
+.abraia-panel input[type="checkbox"]:focus, 
+.abraia-panel input[type="color"]:focus, 
+.abraia-panel input[type="date"]:focus,
+.abraia-panel input[type="datetime-local"]:focus, 
+.abraia-panel input[type="datetime"]:focus, 
+.abraia-panel input[type="email"]:focus, 
+.abraia-panel input[type="month"]:focus, 
+.abraia-panel input[type="number"]:focus, 
+.abraia-panel input[type="password"]:focus, 
+.abraia-panel input[type="radio"]:focus, 
+.abraia-panel input[type="search"]:focus, 
+.abraia-panel input[type="tel"]:focus, 
+.abraia-panel input[type="text"]:focus, 
+.abraia-panel input[type="time"]:focus, 
+.abraia-panel input[type="url"]:focus, 
+.abraia-panel input[type="week"]:focus, 
+.abraia-panel select:focus, 
+.abraia-panel textarea:focus {
+  border-color: #fc0;
+  box-shadow: 0 0 2px rgba(255,211,0,.8);
+}
+.abraia-panel input[type="checkbox"]:checked::before {
+  color: #fc0;
 }
 .abraia-header {
-  background-color: #292f38;
   padding: 10px 20px;
+  display: flex;
 }
 .abraia-header h1 {
-  color: #fafafa;
   font-size: 23px;
   font-weight: 400;
   margin: .5em 0;
 }
 .abraia-header h2 {
-  color: #fafafa;
   font-size: 21px;
   font-weight: 400;
   margin: .5em 0;
 }
 .abraia-header p {
-  color: #fafafa;
   margin: .5em 0;
 }
-.abraia-header p.is-gray {
+.abraia-header .is-gray {
   color: #ccc;
-}
-.abraia-header span.is-yellow {
-  color: #fc0;
 }
 .abraia-message {
   background-color: #fc0;
@@ -72,7 +140,6 @@
 }
 .abraia-row {
   display: flex;
-  margin: 20px 0;
 }
 .abraia-row h1 {
   font-weight: 400;
@@ -89,26 +156,17 @@
   flex-direction: column;
   padding: 10px;
 }
-.abraia-column p.is-centered {
-  text-align: center;
-}
+.abraia-panel p.is-1,
 .abraia-column p.is-1 {
   font-size: 2em;
 }
+.abraia-panel p.is-2,
 .abraia-column p.is-2 {
   font-size: 1.5em;
 }
+.abraia-panel span.is-1,
 .abraia-column span.is-1 {
   font-size: 2em;
-}
-.abraia-column input {
-  width: 100%;
-}
-.abraia-column input.is-green {
-  background-color: #32bea6;
-}
-.abraia-column input.is-red {
-  background-color: #e04f5f;
 }
 .abraia-footer {
   padding: 10px 20px;

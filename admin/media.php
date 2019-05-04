@@ -13,6 +13,7 @@ function abraia_media_init() {
 
     $abraia_settings = get_abraia_settings();
     $abraia->setKey($abraia_settings['api_key']);
+    $abraia->setFolder($abraia_settings['folder'].'/');
 }
 
 function abraia_media_columns( $media_columns ) {
