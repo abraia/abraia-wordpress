@@ -11,8 +11,8 @@ class Abraia extends Client {
 
     function __construct($folder='') {
         parent::__construct();
-        $this->folder = $folder;
         $this->userid = $this->getUserId();
+        $this->setFolder($folder);
     }
 
     private function getUserId() {
@@ -30,7 +30,7 @@ class Abraia extends Client {
     }
 
     function setFolder($folder) {
-        $this->folder = $folder;
+        $this->folder = $folder ? $folder . '/' : '';
     }
 
     function user() {
@@ -38,7 +38,7 @@ class Abraia extends Client {
     }
 
     function files($path='') {
-        return $this->listFiles($this->userid . '/' . $path);
+        return $this->listFiles($this->userid . '/' . $this->folder . $path);
     }
 
     function fromFile($path) {
@@ -56,7 +56,7 @@ class Abraia extends Client {
     }
 
     function fromStore($path) {
-        $this->path = $this->userid . '/' . $path;
+        $this->path = $this->userid . '/' . $this->folder . $path;
         $this->params = array();
         return $this;
     }

@@ -13,7 +13,7 @@ function abraia_media_init() {
 
     $abraia_settings = get_abraia_settings();
     $abraia->setKey($abraia_settings['api_key']);
-    $abraia->setFolder($abraia_settings['folder'].'/');
+    $abraia->setFolder($abraia_settings['folder']);
 }
 
 function abraia_media_columns( $media_columns ) {
@@ -82,7 +82,6 @@ function abraia_media_javascript() {
             $('#progress-'+id).show();
             $('#compress-'+id).hide();
             return $.post(ajaxurl, { action: 'compress_item', id: id }, function(resp) {
-              console.log(resp);
               var stats = JSON.parse(resp);
               var html = renderCustomCell(id, stats);
               $('#compress-'+id).parent().html(html);
