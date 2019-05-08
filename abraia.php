@@ -3,7 +3,7 @@
   Plugin name: Abraia
   Plugin URI: https://github.com/abraia/abraia-wordpress
   Description: Automatically optimize your images with Abraia.
-  Version: 0.6.0
+  Version: 0.6.1
   Author: Abraia Software
   Author URI: https://abraia.me
   Text Domain: abraia
@@ -22,13 +22,9 @@ add_action('init', 'abraia_admin_init');
 function abraia_admin_init() {
     if (is_admin()) {
         load_plugin_textdomain('abraia', false, dirname(plugin_basename(__FILE__)) . '/languages/');
-        if (current_user_can('manage_options')) {
-            include('admin/settings.php');
-        }
-        if (current_user_can('upload_files')) {
-            include('admin/media.php');
-            include('admin/bulk.php');
-            abraia_media_init();
-        }
+        include('admin/settings.php');
+        include('admin/media.php');
+        include('admin/bulk.php');
+        abraia_media_init();
     }
 }

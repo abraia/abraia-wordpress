@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "abraia/abraia",
-            "version": "0.4.4",
+            "version": "0.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/abraia/abraia-php.git",
-                "reference": "76d9629994c2cd8a5adb978053a88edc697c35c7"
+                "reference": "a864a3e450dfed4da33ffcd70d392c3e4f3d852b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/abraia/abraia-php/zipball/76d9629994c2cd8a5adb978053a88edc697c35c7",
-                "reference": "76d9629994c2cd8a5adb978053a88edc697c35c7",
+                "url": "https://api.github.com/repos/abraia/abraia-php/zipball/a864a3e450dfed4da33ffcd70d392c3e4f3d852b",
+                "reference": "a864a3e450dfed4da33ffcd70d392c3e4f3d852b",
                 "shasum": ""
             },
             "require": {
@@ -54,7 +54,7 @@
                 "image-processing",
                 "php"
             ],
-            "time": "2019-05-03T09:31:04+00:00"
+            "time": "2019-05-06T08:34:51+00:00"
         }
     ],
     "packages-dev": [],

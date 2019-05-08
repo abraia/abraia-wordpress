@@ -30,6 +30,7 @@ class Abraia extends Client {
     }
 
     function setFolder($folder) {
+        #substr($folder, -1) == '/' ? $folder : $folder . '/'; 
         $this->folder = $folder ? $folder . '/' : '';
     }
 
