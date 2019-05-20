@@ -74,7 +74,7 @@ function abraia_media_page() {
                   <div>
                     <span><?php esc_html_e('Size now', 'abraia') ?></span>
                     <div class="abraia-progress">
-                      <div id="optimized-bar" class="abraia-progress-bar" style="width:<?php echo round(100 * $total_after / $total_before) ?>%">
+                      <div id="optimized-bar" class="abraia-progress-bar" style="width:<?php echo round(100 * $total_after / ($total_before + 0.000001)) ?>%">
                         <span id="optimized"><?php echo size_format($total_after, 2) ?></span>
                       </div>
                     </div>

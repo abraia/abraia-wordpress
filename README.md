@@ -3,16 +3,18 @@
 
 # Abraia image optimization plugin for WordPress
 
-Automatically optimize images in your WordPress and Woocommerce site to speed
-up you web site for any device with a perfect balance between quality and file
-size.
+Automatically optimize all the images and animations in your WordPress, and 
+speed up your site for any device with a perfect balance between quality and 
+file size.
+
+![Abraia for wordpress bulk animation](images/abraia-wordpress-bulk.gif)
 
 ## Description
 
-Resize and compress all the images and animations (JPEG, PNG, GIF, SVG, and
-WebP) in your WordPress with the best parameters for each image based on its
-contain. It integrates the [Abraia service](https://abraia.me) to provide the
-best in class [image optimization](https://abraia.me/docs/image-optimization)
+Compress all the images and animations (JPEG, PNG, GIF, SVG, and WebP) in your 
+Wordpress and Woocomerce site with the best parameters for each image based on 
+its contain. It integrates the [Abraia service](https://abraia.me) to provide 
+the best in class [image optimization](https://abraia.me/docs/image-optimization)
 technology.
 
 ### Features
@@ -26,8 +28,8 @@ technology.
 - Automatically optimize images on upload.
 
 Install the [Abraia WordPress plugin](
-https://github.com/abraia/abraia-wordpress/archive/v0.6.1.zip) now and start
-optimizing images for free.
+https://github.com/abraia/abraia-wordpress/archive/v0.6.1.zip) now and [start
+optimizing images for free](https://abraia.me/docs/getting-started).
 
 ## Installation
 
