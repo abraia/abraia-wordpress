@@ -28,15 +28,18 @@ class Client {
     }
 
     public function loadUser() {
-        $curl = curl_init(ABRAIA_API_URL . '/users');
-        curl_setopt($curl, CURLOPT_USERPWD, $this->apiKey.':'.$this->apiSecret);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        $resp = curl_exec($curl);
-        $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
-        if ($code != 200)
-            throw new \Exception($resp, $code);
-        return json_decode($resp, true);
+        if ($this->apiKey && $this->apiSecret) {
+            $curl = curl_init(ABRAIA_API_URL . '/users');
+            curl_setopt($curl, CURLOPT_USERPWD, $this->apiKey.':'.$this->apiSecret);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+            $resp = curl_exec($curl);
+            $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            curl_close($curl);
+            if ($code != 200)
+                throw new \Exception($resp, $code);
+            return json_decode($resp, true);
+        }
+        throw new \Exception('Unauthorized', 401);
     }
 
     public function listFiles($path='') {

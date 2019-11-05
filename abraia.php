@@ -3,12 +3,14 @@
   Plugin name: Abraia
   Plugin URI: https://github.com/abraia/abraia-wordpress
   Description: Automatically optimize your images with Abraia.
-  Version: 0.6.1
+  Version: 0.6.2
   Author: Abraia Software
   Author URI: https://abraia.me
   Text Domain: abraia
   License: GPLv2
 */
+
+wp_oembed_add_provider('https://store.abraia.me/*', 'https://api.abraia.me/oembed');
 
 require_once 'vendor/autoload.php';
 

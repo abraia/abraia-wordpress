@@ -28,13 +28,13 @@ technology.
 - Automatically optimize images on upload.
 
 Install the [Abraia WordPress plugin](
-https://github.com/abraia/abraia-wordpress/archive/v0.6.1.zip) now and [start
+https://github.com/abraia/abraia-wordpress/archive/v0.6.2.zip) now and [start
 optimizing images for free](https://abraia.me/docs/getting-started).
 
 ## Installation
 
 1. Download the [last version of the plugin](
-https://github.com/abraia/abraia-wordpress/archive/v0.6.1.zip).
+https://github.com/abraia/abraia-wordpress/archive/v0.6.2.zip).
 2. Install it via Plugins > Add New > Upload Plugin.
 3. Activate it and configure your API Key to get everything working.
 
