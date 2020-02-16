@@ -203,19 +203,16 @@ function abraia_admin_notice() {
         <div class="abraia-row">
           <div class="abraia-panel">
             <div class="abraia-content">
-              <h3>1. <?php esc_html_e('Get your FREE API Key', 'abraia') ?></h3>
-              <p><?php esc_html_e('Enter your email', 'abraia') ?>:</p>
-              <input type="email" class="is-fullwidth" value="<?php echo $current_user->user_email ?>" placeholder="Enter your email" id="user_email" />
-              <button class="button button-hero is-blue" style="margin-top:18px" onClick="fetch('https://api.abraia.me/users', { method: 'POST', body: JSON.stringify({ email: document.getElementById('user_email').value }), headers: { 'Content-Type': 'application/json' } }).then(res => res.json()).then(response => console.log('Success:', JSON.stringify(response))).catch(error => console.error('Error:', error));"><?php esc_html_e('Get API Key', 'abraia') ?></button>
+              <h3><?php esc_html_e('Get your FREE API Key', 'abraia') ?></h3><br><br>
+              <a class="button button-hero is-blue" href="https://abraia.me/login/" target="_blank"><?php esc_html_e('Get API Key', 'abraia') ?></a>
             </div>
           </div>
           <div class="abraia-panel">
             <div class="abraia-content">
-              <h3>2. <?php esc_html_e('Enter your FREE API Key', 'abraia') ?></h3>
-              <p><?php esc_html_e('Enter your API Key', 'abraia') ?>:</p>
+              <h3><?php esc_html_e('Enter your API Key', 'abraia') ?></h3><br>
               <form method="post" action="options.php">
                 <?php settings_fields('abraia'); ?>
-                <input type="text" class="is-fullwidth" name="abraia_settings[api_key]" value="<?php echo $settings['api_key']; ?>" />
+                <input type="text" class="is-fullwidth" name="abraia_settings[api_key]" value="" />
                 <input type="hidden" name="abraia_settings[folder]" value="<?php echo $settings['folder']; ?>" />
                 <input type="hidden" name="abraia_settings[resize]" value="<?php echo $settings['resize']; ?>">
                 <input type="hidden" name="abraia_settings[max_width]" value="<?php echo $settings['max_width']; ?>">
@@ -230,14 +227,6 @@ function abraia_admin_notice() {
                 <input type="hidden" name="abraia_settings[upload]" value="<?php echo $settings['upload']; ?>">
                 <input type="submit" name="submit" class="button button-hero is-blue" style="margin-top:18px" value="<?php esc_html_e('Save API Key', 'abraia') ?>" />
               </form>
-            </div>
-          </div>
-          <div class="abraia-panel">
-            <div class="abraia-content">
-              <h3>3. <?php esc_html_e('Optimize your images', 'abraia') ?></h3>
-              <p><?php esc_html_e('API Status', 'abraia') ?>:</p>
-              <input type="text" class="is-fullwidth<?php echo ($user) ? ' is-green' : ' is-red'?>;" value="<?php echo ($user) ? __('Everything OK', 'abraia') : __('Wrong API Key', 'abraia'); ?>" readonly />
-              <a class="button button-hero is-blue" style="margin-top:18px" href="upload.php?page=abraia_bulk_page"><?php esc_html_e('Optimize images', 'abraia') ?></a>
             </div>
           </div>
         </div>
