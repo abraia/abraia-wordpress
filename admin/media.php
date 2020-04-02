@@ -53,6 +53,7 @@ function abraia_media_javascript() {
       ?>
         <script type="text/javascript">
         jQuery(document).ready(function($) {
+          var nonce = '<?php echo wp_create_nonce('abraia-nonce') ?>';
           function sizeFormat(bytes, decimals = 0) {
             var units = ['B', 'KB', 'MB', 'GB', 'TB'];
             var value = 0;
@@ -81,7 +82,7 @@ function abraia_media_javascript() {
           function compressImage(id) {
             $('#progress-'+id).show();
             $('#compress-'+id).hide();
-            return $.post(ajaxurl, { action: 'compress_item', id: id }, function(resp) {
+            return $.post(ajaxurl, { action: 'compress_item', id: id, nonce: nonce }, function(resp) {
               var stats = JSON.parse(resp);
               var html = renderCustomCell(id, stats);
               $('#compress-'+id).parent().html(html);
@@ -91,7 +92,7 @@ function abraia_media_javascript() {
           function restoreImage(id) {
             $('#progress-'+id).show();
             $('#restore-'+id).hide();
-            return $.post(ajaxurl, { action: 'restore_item', id: id }, function(resp) {
+            return $.post(ajaxurl, { action: 'restore_item', id: id, nonce: nonce }, function(resp) {
               var stats = JSON.parse(resp);
               var html = renderCustomCell(id, null);
               $('#restore-'+id).parent().html(html);
@@ -124,11 +125,13 @@ function abraia_media_javascript() {
 }
 
 function abraia_compress_item() {
+  if (check_ajax_referer('abraia-nonce', 'nonce')) {
     $id = intval($_POST['id']);
     $meta = wp_get_attachment_metadata($id);
     $stats = abraia_compress_image($id, $meta);
     echo json_encode($stats);
-    wp_die();
+  }
+  wp_die();
 }
 
 function abraia_compress_image($id, $meta) {
@@ -178,11 +181,13 @@ function abraia_compress_image($id, $meta) {
 }
 
 function abraia_restore_item() {
+  if (check_ajax_referer('abraia-nonce', 'nonce')) {
     $id = intval($_POST['id']);
     $meta = wp_get_attachment_metadata($id);
     $stats = abraia_restore_image($id, $meta);
     echo json_encode($stats);
     wp_die();
+  }
 }
 
 function abraia_restore_image($id, $meta) {

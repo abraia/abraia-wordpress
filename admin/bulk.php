@@ -125,6 +125,7 @@ function abraia_media_page() {
           var original = <?php echo $total_before ?>;
           var optimized = <?php echo $total_after ?>;
           var images = <?php echo json_encode($images); ?>;
+          var nonce = '<?php echo wp_create_nonce('abraia-nonce') ?>';
           function sizeFormat(bytes, decimals = 0) {
             var units = ['B', 'KB', 'MB', 'GB', 'TB'];
             var value = 0;
@@ -145,15 +146,15 @@ function abraia_media_page() {
             if (percent === 0) $('#progress-bar').text('&nbsp;');
             else $('#progress-bar').text(percent + '%');
           }
-		  function updateInfo(original, optimized) {
-			$('#original').text(sizeFormat(original, 2));
-			$('#optimized').text(sizeFormat(optimized, 2));
-			$('#saved').text(sizeFormat(original - optimized, 2));
-			$('#percent-saved').text(Math.round(100 * (original - optimized) / original));
-			$('#optimized-bar').css({'width': Math.round(100 * optimized / original) + '%'});
-		  }
+          function updateInfo(original, optimized) {
+            $('#original').text(sizeFormat(original, 2));
+            $('#optimized').text(sizeFormat(optimized, 2));
+            $('#saved').text(sizeFormat(original - optimized, 2));
+            $('#percent-saved').text(Math.round(100 * (original - optimized) / original));
+            $('#optimized-bar').css({'width': Math.round(100 * optimized / original) + '%'});
+          }
           function compressImage(id) {
-            return $.post(ajaxurl, { action: 'compress_item', id: id }, function(resp) {
+            return $.post(ajaxurl, { action: 'compress_item', id: id, nonce: nonce }, function(resp) {
               sum += 1;
               var stats = JSON.parse(resp);
               if (stats) {
