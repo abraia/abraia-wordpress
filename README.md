@@ -6,6 +6,7 @@
 
 [![abraia-wordpress release](https://img.shields.io/github/release/abraia/abraia-wordpress.svg)](https://github.com/abraia/abraia-wordpress/releases)
 ![abraia-wordpress dependencies](https://img.shields.io/librariesio/github/abraia/abraia-wordpress.svg)
+![Analytics](https://ga-beacon.appspot.com/UA-108018608-1/github/wordpress?pixel)
 
 # Abraia image optimization plugin for WordPress
 
