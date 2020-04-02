@@ -14,7 +14,7 @@ Tailor-made for best ecommerce image optimization the [Abraia](https://abria.me)
 
 ![Abraia for wordpress bulk animation](images/abraia-wordpress-bulk.gif)
 
-Based on best in class [image optimization](https://abraia.me/docs/image-optimization) technology. It analyzes each image to find and adjust each image compression parameters, providing a perfect balance between image quality and file size.
+Based on best in class [image optimization](https://abraia.me/docs/image-optimization/) technology. It analyzes each image to find and adjust each image compression parameters, providing a perfect balance between image quality and file size.
 
 ## Abraia Wordpress plugin features
 
@@ -22,7 +22,7 @@ Based on best in class [image optimization](https://abraia.me/docs/image-optimiz
 - Optimize your images using advanced content-aware technology.
 - Perfectly compress JPEG, PNG, GIF, SVG, and WebP image files.
 - Automatically resize and compress large images.
-- Integrated cloud backup with no additional cost (15 days). 
+- Integrated cloud backup with no additional cost (15 days).
 - Manually optimize images in the media library.
 - Automatically optimize images on upload.
 

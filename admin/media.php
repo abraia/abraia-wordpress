@@ -124,7 +124,7 @@ function abraia_media_javascript() {
 }
 
 function abraia_compress_item() {
-    $id = $_POST['id'];
+    $id = intval($_POST['id']);
     $meta = wp_get_attachment_metadata($id);
     $stats = abraia_compress_image($id, $meta);
     echo json_encode($stats);
@@ -178,7 +178,7 @@ function abraia_compress_image($id, $meta) {
 }
 
 function abraia_restore_item() {
-    $id = $_POST['id'];
+    $id = intval($_POST['id']);
     $meta = wp_get_attachment_metadata($id);
     $stats = abraia_restore_image($id, $meta);
     echo json_encode($stats);
