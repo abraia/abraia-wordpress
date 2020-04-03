@@ -1,6 +1,6 @@
 {
   "name": "abraia/abraia",
-  "version": "0.4.6",
+  "version": "0.5.0",
   "description": "Abraia PHP SDK",
   "keywords": [
     "image-optimization",
@@ -22,7 +22,8 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^5",
-    "php-coveralls/php-coveralls": "^2.1"
+    "php-coveralls/php-coveralls": "^2.1",
+    "vlucas/phpdotenv": "^4.1"
   },
   "autoload": {
     "psr-4": {

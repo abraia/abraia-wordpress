@@ -1,7 +1,7 @@
 <?php
 /*
   Plugin name: Abraia
-  Plugin URI: https://github.com/abraia/abraia-wordpress
+  Plugin URI: https://abraia.me/wordpress/
   Description: Bulk optimize your Wordpress images with Abraia.
   Version: 1.0
   Author: Abraia Software
