@@ -1,0 +1,10 @@
+# Directories
+/.wordpress-org export-ignore
+/.github export-ignore
+
+# Files
+.gitattributes export-ignore
+.distignore export-ignore
+.gitignore export-ignore
+README.md export-ignore
+LICENSE export-ignore
