@@ -12,7 +12,7 @@ Bulk optimize your images in one click. Reduce your images file size to speed up
 
 == Description ==
 
-Tailor-made for best ecommerce image optimization, the [Abraia](https://abraia.me) plugin provides a cost effective (you only pay what you need, no month subscription) solution. It automatically optimize all your Wordpress and Woocomerce images and animations (JPEG, PNG, GIF, SVG, and WebP) to speed up your website preserving the best visual quality.
+Tailor-made for best ecommerce image optimization, the [Abraia](https://abria.me) plugin provides a cost effective (you only pay what you need, no month subscription) solution. It automatically optimize all your Wordpress and Woocomerce images and animations (JPEG, PNG, GIF, SVG, and WebP) to speed up your website preserving the best visual quality.
 
 Based on best in class [image optimization](https://abraia.me/docs/image-optimization/) technology. It analyzes each image to find and adjust each image compression parameters, providing a perfect balance between image quality and file size.
 
@@ -36,7 +36,7 @@ We are [Abraia](https://abraia.me), a startup focus on image and video optimizat
 
 = Get in touch! =
 
-* Website: [abraia.me/wordpress](https://abraia.me/wordpress/)
+* Website: [https://abraia.me/wordpress/](https://abraia.me/wordpress/)
 * Contact Us: [contact@abraiasoftware.com](mailto:contact@abraiasoftware.com)
 
 == Installation ==
@@ -66,11 +66,13 @@ When the plugin is disabled, your existing images remain optimized.
 
 == Screenshots ==
 
-1. Bulk Optimization
+1. Welcome Settings
 
-2. Settings Page
+2. Bulk Optimization
 
 3. Media Page
+
+4. Settings Page
 
 == Changelog ==
 
