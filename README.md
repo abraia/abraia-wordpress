@@ -28,7 +28,7 @@ Based on best in class [image optimization](https://abraia.me/docs/image-optimiz
 
 ## Abaia Wordpress plugin installation
 
-1. Download the [last version of the plugin](https://github.com/abraia/abraia-wordpress/archive/v1.0.zip).
+1. Download the [last version of the plugin](https://github.com/abraia/abraia-wordpress/archive/v1.1.zip).
 2. Install it via Plugins > Add New > Upload Plugin.
 3. Activate it and configure your API Key to start optimizing.
 

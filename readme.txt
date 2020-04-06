@@ -4,7 +4,7 @@ Tags: optimize images, compress images, optimize, compress, performance
 Requires at least: 4.0
 Tested up to: 5.4
 Requires PHP: 5.6
-Stable tag: 1.0
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,5 +76,8 @@ When the plugin is disabled, your existing images remain optimized.
 
 == Changelog ==
 
+= 1.1 =
+* Fix userid issue
+
 = 1.0 =
-* Initial release.
+* Initial release

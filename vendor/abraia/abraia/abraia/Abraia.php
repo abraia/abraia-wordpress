@@ -23,14 +23,16 @@ class Abraia extends Client {
         }
     }
 
-    function setKey($key) {
+    function setId($userid) {
+        $this->userid = $userid;
+    }
+
+    function setKey($key, $userid='') {
         list($apiKey, $apiSecret) = explode(':', base64_decode($key));
         $this->setApiKeys($apiKey, $apiSecret);
-        $this->userid = $this->getUserId();
     }
 
     function setFolder($folder) {
-        #substr($folder, -1) == '/' ? $folder : $folder . '/'; 
         $this->folder = $folder ? $folder . '/' : '';
     }
 

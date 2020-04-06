@@ -133,6 +133,7 @@
   color: #fafafa;
 }
 .abraia-content {
+  flex: 1;
   padding: 10px 20px;
 }
 .abraia-content h2 {
@@ -140,7 +141,8 @@
   font-weight: 400;
 }
 .abraia-content h3 {
-  margin: .5em 0;
+  font-size: 1.5em;
+  font-weight: 400;
 }
 .abraia-row {
   display: flex;
