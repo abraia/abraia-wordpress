@@ -98,6 +98,7 @@ function get_abraia_user()
     set_abraia_settings($settings);
     if ($settings['api_key']) {
       $user = $abraia->user();
+      $user['credits'] = max($user['credits'], 0);
     }
     $settings['userid'] = $user['id'];
     $settings['email'] = $user['email'];
@@ -118,7 +119,6 @@ function abraia_settings_page()
 {
   $user = get_abraia_user();
   $settings = get_abraia_settings();
-  $credits = max($user['credits'], 0);
   ?>
   <div class="abraia-panel">
     <div class="abraia-header is-dark" style="display:block">
@@ -214,8 +214,8 @@ function abraia_settings_page()
           <h2 class="is-centered"><?php esc_html_e('Your Account', 'abraia') ?></h2>
           <div class="is-light" style="display:flex;flex-direction:column;align-items:center;justify-content:center">
             <p class="is-centered is-2"><?php esc_html_e('Available', 'abraia'); ?><br>
-              <span class="is-1"><b><?php echo size_format($credits * 104858, 1); ?></b></span><br></p>
-            <a class="button button-hero is-yellow" style="font-size:16px;width:unset" href="https://abraia.me/payment/<?php echo ($user) ? '?email=' . $user['email'] : '' ?>" target="_blank"><?php esc_html_e('Buy More Megas', 'abraia'); ?></a>
+              <span class="is-1"><b><?php echo size_format($user['credits'] * 104858, 1); ?></b></span><br></p>
+            <a class="button button-hero is-yellow" style="font-size:16px;width:unset" href="https://abraia.me/payment/<?php echo ($user) ? '?email=' . $user['email'] : '' ?>" target="_blank"><?php esc_html_e('Buy More Credits', 'abraia'); ?></a>
             <p><?php esc_html_e('Total processed', 'abraia') ?> <?php echo $user['transforms']; ?> <?php esc_html_e('images and', 'abraia') ?> <?php echo size_format($user['bandwidth'], 1); ?>
           </div>
         </div>
@@ -281,8 +281,8 @@ function abraia_admin_notice()
   ?>
     <div class="abraia-panel">
       <div class="abraia-message">
-        <a class="button is-dark" href="https://abraia.me/payment/?email=<?php echo $settings['email'] ?>" target="_blank"><?php esc_html_e('Buy More Megas', 'abraia'); ?></a>
-        <h2><?php esc_html_e('Your Abraia optimization quote is expiring!', 'abraia') ?></h2>
+        <a class="button is-dark" href="https://abraia.me/console/payment" target="_blank"><?php esc_html_e('Buy More Credits', 'abraia'); ?></a>
+        <h2><?php esc_html_e('Your Abraia optimization credits are running out!', 'abraia') ?></h2>
       </div>
     </div>
   <?php

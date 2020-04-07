@@ -2,7 +2,7 @@
 /*
   Plugin name: Abraia
   Plugin URI: https://abraia.me/wordpress/
-  Description: Bulk optimize your Wordpress images with Abraia.
+  Description: Bulk optimize your WordPress and WooCommerce images with Abraia to speed up your website with the best quality.
   Version: 1.1
   Author: Abraia Software
   Author URI: https://abraia.me

@@ -1,6 +1,6 @@
-=== Abraia – Bulk optimize your WordPress images ===
+=== Abraia – Bulk image optimizer ===
 Contributors: jrrodri
-Tags: optimize images, compress images, optimize, compress, performance
+Tags: image optimizer, optimize images, image compressor, compress images, optimize performance
 Requires at least: 4.0
 Tested up to: 5.4
 Requires PHP: 5.6
@@ -8,11 +8,11 @@ Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Bulk optimize your images in one click. Reduce your images file size to speed up your website preservig the best quality.
+Bulk optimize your ecommerce images and photos in one click. Speed up your website reducing your images file size and preservig the best quality.
 
 == Description ==
 
-Tailor-made for best ecommerce image optimization, the [Abraia](https://abria.me) plugin provides a cost effective (you only pay what you need, no month subscription) solution. It automatically optimize all your Wordpress and Woocomerce images and animations (JPEG, PNG, GIF, SVG, and WebP) to speed up your website preserving the best visual quality.
+Tailor-made for best ecommerce image optimization. The [Abraia](https://abria.me) plugin provides a cost effective solution (you only pay what you need, no month subscription). It automatically optimize all your WordPress and WooCommerce images and animations (JPEG, PNG, GIF, SVG, and WebP) to speed up your website preserving the best visual quality.
 
 Based on best in class [image optimization](https://abraia.me/docs/image-optimization/) technology. It analyzes each image to find and adjust each image compression parameters, providing a perfect balance between image quality and file size.
 
@@ -77,6 +77,7 @@ When the plugin is disabled, your existing images remain optimized.
 == Changelog ==
 
 = 1.1 =
+* Update translations
 * Fix userid issue
 
 = 1.0 =

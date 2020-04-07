@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Abraia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-04 16:08+0000\n"
-"PO-Revision-Date: 2019-05-04 16:15+0000\n"
-"Last-Translator: jrrodri <jorge@abraiasoftware.com>\n"
+"POT-Creation-Date: 2020-04-07 08:29+0000\n"
+"PO-Revision-Date: 2020-04-07 08:36+0000\n"
+"Last-Translator: \n"
 "Language-Team: Spanish (Spain)\n"
 "Language: es_ES\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
@@ -12,208 +12,180 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.2.2; wp-5.1.1"
+"X-Loco-Version: 2.3.2; wp-5.4"
 
-#: admin/settings.php:86
+#: admin/settings.php:128
 msgid "Settings"
 msgstr "Configuración"
 
-#: admin/settings.php:95
+#: admin/settings.php:137
 msgid "General settings"
 msgstr "Ajustes generales"
 
-#: admin/settings.php:98
+#: admin/settings.php:140
 msgid "Abraia key"
 msgstr "Abraia key"
 
-#: admin/settings.php:105
+#: admin/settings.php:150
 msgid "Cloud folder"
 msgstr "Carpeta backup"
 
-#: admin/settings.php:115
+#: admin/settings.php:160
 msgid "Image optimization"
 msgstr "Optimización de imagen"
 
-#: admin/settings.php:118
+#: admin/settings.php:163
 msgid "Resize larger images"
 msgstr "Redimensionar imágenes de más de"
 
-#: admin/settings.php:120
+#: admin/settings.php:165
 msgid "Max Width"
 msgstr "Ancho máximo"
 
-#: admin/settings.php:122
+#: admin/settings.php:167
 msgid "Max Height"
 msgstr "Alto máximo"
 
-#: admin/settings.php:125
+#: admin/settings.php:170
 msgid "Reduce unnecessarily large images to the specified maximum dimensions"
 msgstr ""
 "Reducir imágenes innecesariamente más grandes que las dimensiones "
 "especificadas"
 
-#: admin/settings.php:129
+#: admin/settings.php:174
 msgid "Compress thumbnails"
 msgstr "Comprimir miniaturas"
 
-#: admin/settings.php:132
+#: admin/settings.php:177
 msgid "Compress generated thumbnails bigger than "
 msgstr "Comprimir miniaturas generadas de más de"
 
-#: admin/settings.php:137
+#: admin/settings.php:182
 msgid "Formats to be optimized"
 msgstr "Fomatos que serán optimizados"
 
-#: admin/settings.php:140
+#: admin/settings.php:185
 msgid "Compress JPEG files"
 msgstr "Comprimir archivos JPEG"
 
-#: admin/settings.php:142
+#: admin/settings.php:187
 msgid "Compress PNG files"
 msgstr "Comprimir archivos PNG"
 
-#: admin/settings.php:144
+#: admin/settings.php:189
 msgid "Compress GIF files"
 msgstr "Comprimir archivos GIF"
 
-#: admin/settings.php:146
+#: admin/settings.php:191
 msgid "Compress SVG files"
 msgstr "Comprimir archivos SVG"
 
-#: admin/settings.php:148
+#: admin/settings.php:193
 msgid "Compress WebP files"
 msgstr "Comprimir archivos WebP"
 
-#: admin/settings.php:152
+#: admin/settings.php:197
 msgid "Compress on upload"
 msgstr "Comprimir al subir"
 
-#: admin/settings.php:155
+#: admin/settings.php:200
 msgid "Compress new images on upload"
 msgstr "Comprimir nuevas imágenes al subirlas"
 
-#: admin/settings.php:162
+#: admin/settings.php:207
 msgid "Save Changes"
 msgstr "Grabar cambios"
 
-#: admin/settings.php:169 admin/bulk.php:96
+#: admin/settings.php:214 admin/bulk.php:100
 msgid "Your Account"
 msgstr "Tu Cuenta"
 
-#: admin/settings.php:171 admin/bulk.php:98
+#: admin/settings.php:216 admin/bulk.php:102
 msgid "Available"
 msgstr "Disponible"
 
-#: admin/settings.php:173 admin/settings.php:249 admin/bulk.php:100
-msgid "Buy More Megas"
-msgstr "Comprar más Megas"
+#: admin/settings.php:218 admin/settings.php:284 admin/bulk.php:104
+msgid "Buy More Credits"
+msgstr "Comprar más Créditos"
 
-#: admin/settings.php:174 admin/bulk.php:101
+#: admin/settings.php:219 admin/bulk.php:105
 msgid "Total processed"
 msgstr "Total procesado"
 
-#: admin/settings.php:174 admin/bulk.php:101
+#: admin/settings.php:219 admin/bulk.php:105
 msgid "images and"
 msgstr "imágenes y"
 
-#: admin/settings.php:180
+#: admin/settings.php:225
 msgid "Support"
 msgstr "Soporte"
 
-#: admin/settings.php:180
+#: admin/settings.php:225
 msgid "If you have any question, doubt, or issue, just send us an email."
 msgstr ""
 "Si tienes alguna pregunta, duda o problema, simplemente envíanos un email."
 
-#: admin/settings.php:181
+#: admin/settings.php:226
 msgid "Get Support"
 msgstr "Obtén soporte"
 
-#: admin/settings.php:200
+#: admin/settings.php:244
 msgid "Welcome!"
 msgstr "¡Bienvenido!"
 
-#: admin/settings.php:206
+#: admin/settings.php:250
 msgid "Get your FREE API Key"
 msgstr "Obtén tu API Key GRATUITA"
 
-#: admin/settings.php:207
-msgid "Enter your email"
-msgstr "Introduce tu dirección de email"
-
-#: admin/settings.php:209
+#: admin/settings.php:251
 msgid "Get API Key"
 msgstr "Obtener API Key"
 
-#: admin/settings.php:214
-msgid "Enter your FREE API Key"
-msgstr "Introduce tu API Key GRATUITA"
-
-#: admin/settings.php:215
+#: admin/settings.php:254
 msgid "Enter your API Key"
 msgstr "Introduce tu API Key"
 
-#: admin/settings.php:231
+#: admin/settings.php:273
 msgid "Save API Key"
 msgstr "Guardar API Key"
 
-#: admin/settings.php:237
-msgid "Optimize your images"
-msgstr "Optimiza tus imágenes"
-
-#: admin/settings.php:238
-msgid "API Status"
-msgstr "Estado de la API"
-
-#: admin/settings.php:239
-msgid "Everything OK"
-msgstr "Todo está correcto"
-
-#: admin/settings.php:239
-msgid "Wrong API Key"
-msgstr "API Key Incorrecta"
-
-#: admin/settings.php:240
-msgid "Optimize images"
-msgstr "Optimiza imágenes"
-
-#: admin/settings.php:250
-msgid "Your Abraia optimization quote is expiring!"
-msgstr "Tu cuota de optimización de Abraia se está acabando"
+#: admin/settings.php:285
+msgid "Your Abraia optimization credits are running out!"
+msgstr "Tus créditos de optimización de Abraia se está acabando"
 
 #: admin/media.php:20
 msgid "Abraia Compression"
 msgstr "Abraia Compresión"
 
-#: admin/bulk.php:6
+#: admin/bulk.php:7
 msgid "Bulk Abraia"
 msgstr "Bulk Abraia"
 
-#: admin/bulk.php:43
+#: admin/bulk.php:47
 msgid "Bulk optimization"
 msgstr "Optimización bulk"
 
-#: admin/bulk.php:52
+#: admin/bulk.php:56
 msgid "Optimized"
 msgstr "Optimizado"
 
-#: admin/bulk.php:64
+#: admin/bulk.php:68
 msgid "images of"
 msgstr "imágenes de"
 
-#: admin/bulk.php:69
+#: admin/bulk.php:73
 msgid "Saved"
 msgstr "Ahorrado"
 
-#: admin/bulk.php:72
+#: admin/bulk.php:76
 msgid "Size now"
 msgstr "Tamaño ahora"
 
-#: admin/bulk.php:81
+#: admin/bulk.php:85
 msgid "Size before"
 msgstr "Tamaño antes"
 
-#: admin/bulk.php:114
+#: admin/bulk.php:118
 msgid "Bulk Optimization"
 msgstr "Optimizar todo"
 
@@ -222,12 +194,16 @@ msgid "Abraia"
 msgstr "Abraia"
 
 #. Description of the plugin
-msgid "Automatically optimize your images with Abraia."
-msgstr "Automáticamente optimizar imágenes con Abraia."
+msgid ""
+"Bulk optimize your WordPress and WooCommerce images with Abraia to speed up "
+"your website with the best quality."
+msgstr ""
+"Optimiza todas tus imágenes de WordPress y WooCommerce con Abraia para "
+"acelar tu sitio web con la mejor calidad."
 
 #. URI of the plugin
-msgid "https://github.com/abraia/abraia-wordpress"
-msgstr "https://github.com/abraia/abraia-wordpress"
+msgid "https://abraia.me/wordpress/"
+msgstr "https://abraia.me/wordpress/"
 
 #. Author of the plugin
 msgid "Abraia Software"
