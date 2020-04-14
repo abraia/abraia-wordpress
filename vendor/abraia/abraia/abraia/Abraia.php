@@ -15,6 +15,7 @@ class Abraia extends Client {
         $this->setFolder($folder);
     }
 
+
     private function getUserId() {
         try {
             return $this->user()['id'];
@@ -27,9 +28,10 @@ class Abraia extends Client {
         $this->userid = $userid;
     }
 
-    function setKey($key, $userid='') {
-        list($apiKey, $apiSecret) = explode(':', base64_decode($key));
+    function setKey($key) {
+        list($apiKey, $apiSecret) = array_pad(explode(':', base64_decode($key)), 2, null);
         $this->setApiKeys($apiKey, $apiSecret);
+        // $this->userid = $this->getUserId();
     }
 
     function setFolder($folder) {
